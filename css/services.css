@@ -1,0 +1,43 @@
+.services{background:transparent}
+.service-explorer{max-width:1400px;margin:65px auto 0;display:grid;grid-template-columns:1.05fr .95fr;min-height:650px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.service-visual{position:relative;overflow:hidden;border-right:1px solid var(--line);display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.08),transparent 42%),var(--bg)}
+.service-grid{position:absolute;inset:0;opacity:.25;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(circle,#000,transparent 72%)}
+.service-art{width:72%;aspect-ratio:1;position:relative;display:grid;place-items:center;isolation:isolate;--service-accent:#c8dcff}
+.service-art:after{content:"";position:absolute;inset:-14%;z-index:-1;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--service-accent) 14%,transparent),transparent 48%);opacity:.45;filter:blur(28px);transition:opacity .55s ease,transform .8s var(--ease)}
+.service-art.service-changing:after{opacity:.85;transform:scale(1.08)}
+.service-art.service-changing{animation:serviceSwap .24s ease-out both}
+.art-core{width:28%;aspect-ratio:1;border-radius:22%;background:var(--fg);box-shadow:0 0 80px rgba(255,255,255,.12);animation:coreFloat 4.5s ease-in-out infinite;transition:border-radius .7s var(--ease),box-shadow .7s var(--ease)}
+.art-line{position:absolute;border:1px solid rgba(255,255,255,.35);transform-origin:center;animation:lineDrift 6s ease-in-out infinite}
+.art-line.one{width:72%;height:24%;border-radius:50%;transform:rotate(-20deg)}
+.art-line.two{width:55%;height:55%;border-radius:28%;transform:rotate(38deg);animation-delay:-2s}
+.art-line.three{width:88%;height:88%;border-radius:50%;animation-delay:-4s}
+.art-caption{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:end;color:#888;font-size:9px;letter-spacing:.14em}
+.art-caption strong{font-size:10px;color:#ddd;font-weight:500}
+.service-art[data-mode="1"] .art-core{border-radius:50%;background:conic-gradient(#fff,#666,#111,#fff);animation:spin 5s linear infinite}
+.service-art[data-mode="2"] .art-core{width:17%;border-radius:3px;box-shadow:0 0 0 35px rgba(255,255,255,.05),0 0 0 70px rgba(255,255,255,.025);animation:socialPulse 2.8s ease-in-out infinite}
+.service-art[data-mode="3"] .art-core{width:45%;height:18%;aspect-ratio:auto;border-radius:6px;background:linear-gradient(90deg,#fff 0 12%,#555 12% 15%,#fff 15% 60%,#333 60% 63%,#777 63%);animation:explainSlide 3.2s ease-in-out infinite}
+.service-art[data-mode="4"] .art-core{width:45%;height:45%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 4%,#888 5% 13%,#111 14%);animation:launch 3.8s ease-in-out infinite}
+.service-art[data-mode="5"] .art-core{width:48%;height:32%;aspect-ratio:auto;border-radius:9px;background:linear-gradient(#aaa 0 12%,#222 12% 100%);box-shadow:0 0 0 1px #666,0 0 60px rgba(255,255,255,.08);animation:uiFloat 4s ease-in-out infinite}
+.service-list{display:flex;flex-direction:column}
+.service-item{position:relative;background:transparent;border:0;border-bottom:1px solid var(--line);text-align:left;padding:24px 30px;cursor:pointer;display:grid;grid-template-columns:38px 1fr auto;align-items:baseline;
+  box-shadow:inset 0 0 0 var(--sv);transition:background-color .12s linear,box-shadow .12s linear}
+.service-item:last-child{border-bottom:0}
+.service-no{font-size:9px;color:var(--faint);transition:color .12s linear}
+.service-item strong{font-size:clamp(23px,3vw,42px);letter-spacing:-.04em;font-weight:500;color:color-mix(in srgb,var(--fg) 46%,transparent);transition:color .12s linear}
+.service-go{font-style:normal;font-size:20px;color:var(--fg);opacity:0;transform:translateX(-8px);transition:opacity .12s linear,transform .18s ease-out}
+.service-item small{grid-column:2;color:var(--faint);margin-top:6px;font-size:10px;transition:color .12s linear}
+.service-item:hover strong{color:color-mix(in srgb,var(--fg) 75%,transparent)}
+.service-item.active{background:color-mix(in srgb,var(--sv) 7%,transparent);box-shadow:inset 2px 0 0 color-mix(in srgb,var(--sv) 80%,var(--fg))}
+.service-item.active strong{color:var(--fg)}
+.service-item.active .service-no{color:color-mix(in srgb,var(--sv) 60%,var(--fg))}
+.service-item.active small{color:var(--muted)}
+.service-item.active .service-go{opacity:1;transform:none}
+.service-item:focus-visible{outline:1px solid var(--fg);outline-offset:-4px}
+@keyframes coreFloat{50%{transform:translateY(-9px) rotate(8deg)}}
+@keyframes lineDrift{50%{transform:rotate(25deg) scale(1.05)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes socialPulse{50%{transform:scale(1.25);box-shadow:0 0 0 55px rgba(255,255,255,.045),0 0 0 105px rgba(255,255,255,.018)}}
+@keyframes explainSlide{50%{transform:translateX(18px)}}
+@keyframes launch{50%{transform:scale(1.18) translateY(-10px)}}
+@keyframes uiFloat{50%{transform:translateY(-12px) rotate(-2deg)}}
+@keyframes serviceSwap{0%{opacity:.55;transform:scale(.975)}100%{opacity:1;transform:scale(1)}}

@@ -1,0 +1,61 @@
+.clients{padding:135px 5vw 150px;background:var(--bg);overflow:hidden}
+.clients-head{max-width:1400px;margin:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:50px}
+.clients-head h2{font-size:clamp(46px,7vw,96px);line-height:.88;letter-spacing:-.065em;margin:0}
+.clients-head h2 em{font-style:normal;color:var(--muted)}
+.clients-head>p{max-width:300px;color:var(--muted);font-size:12px;line-height:1.6;margin:0}
+.clients-app{max-width:1400px;margin:65px auto 0}
+
+/* ghost name strip: its own row, never overlaps the composition */
+.cl-marquee{overflow:hidden;border-top:1px solid var(--line);padding:22px 0;color:var(--faint);opacity:.55;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.cl-marquee-track{display:flex;align-items:center;width:max-content;gap:clamp(22px,3vw,46px);font-size:clamp(20px,2.6vw,38px);letter-spacing:-.04em;white-space:nowrap;animation:clTravel 80s linear infinite}
+.cl-marquee-track i{width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+@keyframes clTravel{to{transform:translateX(-50%)}}
+
+/* stage: selector | feature | media — three clearly separate columns */
+.cl-stage{display:grid;grid-template-columns:minmax(210px,.72fr) minmax(0,1.55fr) minmax(250px,.85fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);min-height:560px}
+.cl-list{display:flex;flex-direction:column;max-height:560px;overflow-y:auto;border-right:1px solid var(--line);scrollbar-width:none;overscroll-behavior:contain}
+.cl-list::-webkit-scrollbar{display:none}
+.cl-item{display:grid;grid-template-columns:34px 1fr;align-items:baseline;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:20px 22px;cursor:pointer;box-shadow:inset 0 0 0 var(--fg);transition:background-color .12s linear,box-shadow .12s linear}
+.cl-item span{font-size:9px;color:var(--faint)}
+.cl-item strong{font-size:clamp(17px,1.7vw,24px);font-weight:500;letter-spacing:-.03em;color:color-mix(in srgb,var(--fg) 45%,transparent);transition:color .12s linear;overflow-wrap:anywhere}
+.cl-item:hover strong{color:color-mix(in srgb,var(--fg) 75%,transparent)}
+.cl-item.active{background:var(--surface-1);box-shadow:inset 2px 0 0 var(--accent)}
+.cl-item.active strong{color:var(--fg)}
+.cl-item.active span{color:var(--accent)}
+.cl-item:focus-visible,.cl-tile:focus-visible,.cl-nav button:focus-visible{outline:1px solid var(--fg);outline-offset:-3px}
+
+.cl-feature{container-type:inline-size;display:flex;flex-direction:column;justify-content:space-between;padding:26px clamp(20px,3vw,48px) 34px;border-right:1px solid var(--line);min-width:0}
+.cl-topline{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.cl-count{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.14em;color:var(--muted)}
+.cl-count b{font-weight:500;color:var(--fg)}
+.cl-count i{width:34px;height:1px;background:var(--line-strong)}
+.cl-nav{display:flex;gap:8px}
+.cl-nav button{width:40px;height:40px;border-radius:50%;background:transparent;border:1px solid var(--line-strong);cursor:pointer;font-size:14px;transition:background-color .15s,color .15s,border-color .15s}
+.cl-nav button:hover{background:var(--fg);color:var(--accent);border-color:var(--fg)}
+.cl-body{padding:44px 0 6px}
+.cl-name{font-size:clamp(40px,15.5cqi,150px);line-height:.92;letter-spacing:-.065em;font-weight:600;margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.cl-name img{display:block;max-width:min(100%,420px);max-height:1.1em;object-fit:contain}
+.cl-desc{max-width:420px;margin:26px 0 0;color:var(--muted);font-size:13px;line-height:1.65}
+.cl-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.cl-meta span,.cl-meta a{font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:7px 11px;border:1px solid var(--line-strong);border-radius:999px;color:var(--muted)}
+.cl-meta a{color:var(--fg);border-color:var(--fg)}
+.cl-meta:empty{display:none}
+.cl-in{animation:clIn .38s var(--ease) both}
+.cl-desc.cl-in{animation-delay:.04s}.cl-meta.cl-in{animation-delay:.08s}
+@keyframes clIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.cl-media{padding:26px clamp(16px,2vw,28px);display:flex;flex-direction:column;gap:14px;min-width:0}
+.cl-frame,.cl-tile-media{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line);background:linear-gradient(150deg,var(--surface-2),var(--surface-1))}
+.cl-frame{aspect-ratio:4/5;width:100%}
+.cl-frame img,.cl-tile-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.cl-frame.cl-in{animation:clFade .5s ease both}
+@keyframes clFade{from{opacity:.2}to{opacity:1}}
+.cl-ph{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:16px;font-size:9px;letter-spacing:.16em;color:var(--faint)}
+.cl-ph b{font-size:clamp(48px,6vw,84px);line-height:.8;letter-spacing:-.06em;font-weight:600;color:color-mix(in srgb,var(--fg) 13%,transparent)}
+.has-img>.cl-ph{display:none}
+.cl-thumbs{display:flex;gap:8px}
+.cl-thumbs:empty{display:none}
+.cl-thumbs button{width:46px;height:46px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2) center/cover;cursor:pointer;opacity:.55;transition:opacity .15s,border-color .15s}
+.cl-thumbs button.on,.cl-thumbs button:hover{opacity:1;border-color:var(--fg)}
+

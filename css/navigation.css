@@ -1,0 +1,45 @@
+/* ===== Floating glass header (matches <header class="header"> in index.html) ===== */
+.header{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:50;
+  width:min(760px,calc(100% - 28px));height:56px;padding:0 9px 0 22px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  border:1px solid var(--glass-border);border-radius:999px;
+  background:var(--glass-bg);
+  backdrop-filter:blur(28px) saturate(165%);
+  -webkit-backdrop-filter:blur(28px) saturate(165%);
+  box-shadow:var(--glass-shadow);
+  transition:background .4s ease,border-color .4s ease,box-shadow .4s ease;
+}
+.header:before{
+  content:"";position:absolute;inset:1px;border-radius:inherit;
+  background:var(--glass-sheen);pointer-events:none;
+}
+.logo,.nav-links,.header-actions{position:relative;z-index:1}
+
+.logo{font-size:11px;letter-spacing:.22em;font-weight:700;cursor:pointer}
+.logo:focus-visible{outline:1px solid var(--accent);outline-offset:6px;border-radius:2px}
+
+.nav-links{display:flex;gap:24px}
+.nav-links a{font-size:11px;color:var(--nav-link);transition:color .3s ease}
+.nav-links a:hover{color:var(--fg)}
+
+.header-actions{display:flex;align-items:center;gap:10px}
+
+.header-book{
+  height:39px;padding:0 16px;border-radius:999px;
+  background:var(--book-bg);color:var(--book-fg);
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+  font-size:10px;font-weight:700;
+  transition:transform .35s var(--ease),opacity .3s ease;
+}
+.header-book:hover{transform:translateY(-1px);opacity:.88}
+
+.theme-toggle-btn{
+  height:39px;background:transparent;border:1px solid var(--line);color:var(--fg);
+  padding:0 14px;font-size:10px;font-weight:600;letter-spacing:.1em;
+  cursor:pointer;border-radius:999px;transition:all .3s ease;
+}
+.theme-toggle-btn:hover{border-color:var(--fg)}
+
+/* anchor links shouldn't hide under the fixed header */
+section[id]{scroll-margin-top:90px}

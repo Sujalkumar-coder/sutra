@@ -1,0 +1,18 @@
+.footer{padding:30px 4vw 24px;overflow:hidden}
+.footer-meta{display:flex;justify-content:space-between;gap:12px;color:var(--faint);font-size:8px;letter-spacing:.13em}
+
+.footer-word-wrap{position:relative;padding-top:clamp(36px,7vw,80px);color:var(--fg)}
+
+/* Plain-text version: this is what shows without JS / WebGL, and what assistive tech reads. */
+.footer-word{font-size:clamp(84px,24.5vw,440px);font-weight:700;letter-spacing:0;line-height:.8;text-align:center;user-select:none}
+
+/* Once the wordmark renderer is running, the text stays in the DOM but is not painted,
+   so exactly ONE "SUTRA" is ever visible. */
+.footer-word-wrap.has-canvas .footer-word{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.footer-canvas{display:none;width:100%;cursor:crosshair}
+.footer-word-wrap.has-canvas .footer-canvas{display:block}
+
+@media(max-width:800px){
+  .footer-word-wrap{padding-top:80px}
+}

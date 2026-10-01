@@ -1,0 +1,82 @@
+.contact{text-align:center;padding:180px 5vw}
+.contact h2{font-size:clamp(55px,9vw,135px);line-height:.86;letter-spacing:-.07em;margin:0 auto 55px}
+
+/* ============================================================
+   BOOK A CALL
+   Resting: dark (dark mode) / white (light mode), thin border, orange accent tick.
+   Hover:   ONE canvas (.btn-fill) paints orange pixel-cells as the button's own background.
+            js/components/booking.js drives it; the mark, text, arrow and separator flip colour
+            exactly when the fill passes them, so nothing appears "after" the transition.
+   ============================================================ */
+.contact-button{
+  --rest-bg:#0b0b0b;
+  --m1:var(--accent);            /* 3x3 mark: accent squares */
+  --m0:var(--faint);             /* 3x3 mark: dim squares */
+  --on:#0a0a0a;                  /* ink used on top of the orange fill */
+  --on-dim:rgba(10,10,10,.30);
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:stretch;
+  border:1px solid var(--line-strong);
+  background:var(--rest-bg);
+  color:var(--fg);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.20em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:border-color .2s ease,background-color .4s ease;
+}
+body.light-mode .contact-button{--rest-bg:#fff}
+.contact-button.is-lit{border-color:var(--accent)}
+
+/* the fill: sits behind everything, painted by JS, invisible when empty */
+.btn-fill{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:block;pointer-events:none}
+
+/* orange accent tick (static) */
+.contact-button::before{content:"";position:absolute;left:0;top:0;width:34px;height:2px;background:var(--accent);z-index:4}
+
+/* 3x3 pixel mark. Static markup; JS only recolours individual squares as the fill passes them. */
+.btn-mark{
+  align-self:center;
+  flex:none;
+  margin:0 4px 0 30px;
+  width:5px;
+  height:5px;
+  position:relative;
+  z-index:3;
+  box-shadow:
+    0 0 var(--m0),8px 0 var(--m0),16px 0 var(--m1),
+    0 8px var(--m0),8px 8px var(--m1),16px 8px var(--m0),
+    0 16px var(--m1),8px 16px var(--m0),16px 16px var(--m0);
+  transform:translateX(-6px) translateY(-8px);
+}
+
+.btn-text{position:relative;z-index:3;padding:26px 34px 26px 30px;display:flex;align-items:center}
+.btn-label{display:block}
+.btn-text .ch{transition:color .1s linear}
+.btn-text .ch.is-on{color:var(--on)}
+
+.btn-arrow-area{position:relative;z-index:3;width:68px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.btn-arrow-area::before{content:"";position:absolute;left:0;top:30%;bottom:30%;border-left:1px dashed var(--line-strong);transition:border-color .1s linear}
+.btn-arrow-area.is-sep-on::before{border-color:rgba(10,10,10,.4)}
+.contact-button .btn-arrow-out,.contact-button .btn-arrow-in{font-size:15px;display:flex;transition:transform .45s var(--ease),color .1s linear}
+.contact-button .btn-arrow-in{position:absolute;transform:translateX(-250%)}
+.contact-button.is-hot .btn-arrow-out{transform:translateX(250%)}
+.contact-button.is-hot .btn-arrow-in{transform:translateX(0)}
+/* arrows are orange at rest; once the fill reaches them they must turn dark or they vanish */
+.contact-button .btn-arrow-area.is-arrow-on .btn-arrow-out,
+.contact-button .btn-arrow-area.is-arrow-on .btn-arrow-in{color:var(--on)}
+
+.contact-button:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+
+.booking-toast{position:fixed;right:24px;bottom:24px;z-index:80;padding:13px 17px;border:1px solid rgba(255,255,255,.16);background:rgba(20,20,20,.88);backdrop-filter:blur(15px);border-radius:12px;font-size:11px;display:flex;gap:9px;align-items:center;opacity:0;transform:translateY(15px) scale(.95);pointer-events:none}
+.booking-toast.show{animation:toast .9s cubic-bezier(.16,1,.3,1) forwards}
+.booking-toast .spark{color:var(--accent);font-size:15px}
+@keyframes toast{0%{opacity:0;transform:translateY(15px) scale(.95)}20%,80%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-8px) scale(1.02)}}
+
+@media(prefers-reduced-motion:reduce){
+  .btn-arrow-out,.btn-arrow-in,.btn-text .ch{transition-duration:.01s!important}
+}

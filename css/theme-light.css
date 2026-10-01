@@ -1,0 +1,26 @@
+/* Light-mode overrides. Colours that use the design tokens (--bg, --fg, --muted, --faint, --surface-*)
+   switch automatically; only the dark media frames / decorative art need explicit rules here. */
+body{transition:background .4s ease,color .4s ease}
+
+body.light-mode .hero-note,
+body.light-mode .project-info-main p:last-child,
+body.light-mode .project-count{color:var(--muted)}
+
+body.light-mode .work-glow,
+body.light-mode .work-stage:after{display:none}
+body.light-mode .project-count i{background:rgba(0,0,0,.25)}
+body.light-mode .circle-btn{background:rgba(0,0,0,.02)}
+body.light-mode .circle-btn:hover{background:var(--fg);color:var(--bg)}
+
+/* service artwork */
+body.light-mode .service-visual{background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.06),transparent 42%),var(--bg)}
+body.light-mode .service-grid{background-image:linear-gradient(rgba(0,0,0,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.08) 1px,transparent 1px)}
+body.light-mode .art-core{background:#111;box-shadow:0 0 60px rgba(0,0,0,.15)}
+body.light-mode .art-line{border-color:rgba(0,0,0,.35)}
+body.light-mode .art-caption{color:var(--muted)}
+body.light-mode .art-caption strong{color:var(--fg)}
+
+/* cursor + toast */
+body.light-mode .cursor-dot{background:#080808;box-shadow:none}
+body.light-mode #cursorTrail{mix-blend-mode:normal}
+body.light-mode .booking-toast{background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.12);color:#080808}

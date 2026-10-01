@@ -1,0 +1,17 @@
+@import 'variables.css';
+@import 'reset.css';
+@import 'navigation.css';
+@import 'hero.css';
+@import 'work.css';
+@import 'clients.css';
+@import 'services.css';
+@import 'about.css';
+@import 'contact.css';
+@import 'footer.css';
+@import 'cursor.css';
+@import 'layout.css';
+@import 'responsive.css';
+@import 'theme-light.css';
+
+/* Brand guidance: every directional arrow uses the Sutra orange token. */
+.arrow,.btn-arrow-out,.btn-arrow-in,.service-go,.cl-nav button,.circle-btn{color:var(--accent)}

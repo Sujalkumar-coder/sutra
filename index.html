@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sutra Studio — motion, video and visual storytelling.">
+  <title>Sutra Studio — Motion & Visual Storytelling</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23080808'/%3E%3Cg fill='%23fa4500'%3E%3Crect x='19' y='7' width='6' height='6'/%3E%3Crect x='13' y='13' width='6' height='6'/%3E%3Crect x='7' y='19' width='6' height='6'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <script>try{if(localStorage.getItem('sutra-theme')==='light')document.body.classList.add('light-mode')}catch(e){}</script>
+  <div class="cursor-dot"></div>
+  <canvas id="cursorTrail"></canvas>
+
+  <header class="header">
+  <a class="logo" href="#top" aria-label="Sutra Studio — back to top">SUTRA</a>
+  <nav class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="header-actions">
+    <!-- Day/Night Toggle Button -->
+    <button class="theme-toggle-btn" id="themeToggle">LIGHT</button>
+    <a href="#contact" class="header-book">Book a call <span class="arrow">↗</span></a>
+  </div>
+</header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">SUTRA STUDIO / MOTION · VIDEO · STORY</p>
+        <h1>We make ideas<br><em>impossible to ignore.</em></h1>
+        <p class="hero-note">Visual systems, motion design and edits built to make attention stay.</p>
+      </div>
+      <div class="hero-stage media-placeholder">
+        <div class="media-noise"></div><div class="hero-play">▶</div>
+        <div class="media-label"><span>INTRO / REEL</span><span>00:00 — 00:30</span></div>
+      </div>
+    </section>
+
+    <!-- Work Section -->
+    <section class="work" id="work">
+      <div class="section-head">
+        <div><p class="eyebrow">01 / SELECTED WORK</p><h2>A moving archive.</h2></div>
+        <p class="section-intro">One film takes the stage. The next one is already waiting in the depth behind it.</p>
+      </div>
+
+      <div class="work-stage" id="workStage">
+        <div class="work-glow"></div>
+        <div class="project-card" data-slot="0"><div class="project-visual"><span></span></div></div>
+        <div class="project-card" data-slot="1"><div class="project-visual"><span></span></div></div>
+        <div class="project-card" data-slot="2"><div class="project-visual"><span></span><div class="fake-video"><div class="fake-grid"></div><div class="fake-orb"></div><span class="play-state">AUTO PLAY / MUTED</span></div></div></div>
+        <div class="project-card" data-slot="3"><div class="project-visual"><span></span></div></div>
+        <div class="project-card" data-slot="4"><div class="project-visual"><span></span></div></div>
+         <div class="project-info">
+          <div class="project-info-main">
+            <p class="eyebrow" id="projectCategory"></p><h3 id="projectTitle"></h3><p id="projectDescription"></p>
+          </div>
+          <div class="project-controls">
+            <button class="circle-btn magnetic" id="prevProject" aria-label="Previous project">←</button>
+            <div class="project-count"><span id="projectCurrent"></span><i></i><span id="projectTotal"></span></div>
+            <button class="circle-btn magnetic" id="nextProject" aria-label="Next project">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section class="clients" id="clients">
+      <div class="clients-head">
+        <div><p class="eyebrow">02 / SELECTED CLIENTS</p><h2>Built with people<br><em>worth building for.</em></h2></div>
+        <p>Selected collaborations, shown simply — because the work should still do the talking.</p>
+      </div>
+      <div class="clients-app" id="clientsApp"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+      <div class="section-head">
+        <div><p class="eyebrow">03 / WHAT WE DO</p><h2>Built for attention.</h2></div>
+        <p class="section-intro">Each craft has its own visual language. Move through the list and watch the system recompose.</p>
+      </div>
+      <div class="service-explorer" id="serviceExplorer">
+        <div class="service-visual">
+          <div class="service-grid"></div>
+          <div class="service-art" id="serviceArt">
+            <div class="art-core"></div><div class="art-line one"></div><div class="art-line two"></div><div class="art-line three"></div>
+            <div class="art-caption"><span id="serviceIndex">01</span><strong id="serviceVisualTitle">VIDEO EDITING</strong></div>
+          </div>
+        </div>
+        <div class="service-list" id="serviceList"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="about-top"><p class="eyebrow">04 / ABOUT SUTRA</p><span>EST. 2026</span></div>
+      
+      <!-- Added 'reveal-trigger' to act as the observer radar -->
+      <div class="about-layout reveal-trigger">
+        <div class="about-index reveal-item">04</div>
+        <div class="about-main">
+          <p class="about-kicker reveal-item">A small studio with a simple obsession.</p>
+          <h2 class="reveal-item">Make the<br><span>moment</span><br><em>matter.</em></h2>
+        </div>
+        <div class="about-side">
+          <p class="reveal-item">Sutra works where editing, motion and storytelling meet. We turn raw ideas into visual systems that have rhythm, hierarchy and a reason to move.</p>
+          <div class="about-tags reveal-item"><span>EDIT</span><span>MOVE</span><span>HOLD</span></div>
+        </div>
+      </div>
+      
+      <div class="about-rule"><span>CRAFT OVER NOISE</span><i></i><span>ATTENTION BY DESIGN</span></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <p class="eyebrow">05 / START SOMETHING</p>
+      <h2>Let's make the<br><em>moment matter.</em></h2>
+      
+      <a class="contact-button magnetic" href="mailto:hello@sutra.studio" aria-label="Book a call" data-book>
+        <canvas class="btn-fill" aria-hidden="true"></canvas>
+        <span class="btn-mark" aria-hidden="true"></span>
+        <span class="btn-text">Book a call</span>
+        <div class="btn-arrow-area" aria-hidden="true">
+          <span class="btn-arrow-out">→</span>
+          <span class="btn-arrow-in">→</span>
+        </div>
+      </a>
+    </section>
+     
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-meta"><span>SUTRA STUDIO</span><span>MOTION · VIDEO · STORY</span><span>© 2026</span></div>
+    <div class="footer-word-wrap" id="footerWordWrap"><div class="footer-word" id="footerWord">SUTRA</div></div>
+  </footer>
+
+  
+
+  <div class="booking-toast" id="bookingToast"><span class="spark">✦</span><span>Let's make something move.</span></div>
+  
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

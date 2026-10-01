@@ -1,0 +1,17 @@
+.hero{padding:185px 5vw 105px}
+.hero-copy{max-width:1150px;margin:auto;text-align:center}
+.eyebrow{font-size:9px;letter-spacing:.17em;color:var(--muted);margin:0 0 20px}
+.hero{--hero-1:#f3f1ed;--hero-2:#a9a7a2;--hero-3:#63615d}
+body.light-mode .hero{--hero-1:#080808;--hero-2:#4b4b48;--hero-3:#8d8b85}
+/* 3 shades top -> bottom, works whether the title wraps to 2 or 3 lines */
+.hero h1{font-size:clamp(56px,9vw,145px);line-height:.86;letter-spacing:-.065em;font-weight:600;margin:0 0 -.12em;padding-bottom:.2em;
+  background:linear-gradient(180deg,var(--hero-1) 0%,var(--hero-1) 24%,var(--hero-2) 58%,var(--hero-3) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.hero h1 em{font-style:normal}
+.contact h2 em{font-style:normal;color:var(--muted)}
+.hero-note{margin:35px auto 55px;max-width:410px;color:#999;line-height:1.55;font-size:13px}
+.hero-stage{max-width:1400px;height:min(62vw,720px);min-height:430px;margin:auto;border-radius:30px;border:1px solid var(--line);overflow:hidden;position:relative;background:radial-gradient(circle at 52% 40%,#3b3b3b,#141414 35%,#090909 72%);box-shadow:0 35px 100px rgba(0,0,0,.5)}
+.media-noise,.fake-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(circle,#000,transparent 70%)}
+.hero-stage:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,transparent 20%,rgba(0,0,0,.58) 85%)}
+.hero-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border:1px solid rgba(255,255,255,.3);border-radius:50%;display:grid;place-items:center;font-size:15px;background:rgba(255,255,255,.04);z-index:2}
+.media-label{position:absolute;left:24px;right:24px;bottom:20px;display:flex;justify-content:space-between;color:#888;font-size:9px;letter-spacing:.14em;z-index:3}

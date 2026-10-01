@@ -1,0 +1,14 @@
+/* Shared layout rules. Imported BEFORE responsive.css so the mobile overrides can win. */
+.magnetic{transform:translate3d(var(--mx,0),var(--my,0),0);transition:transform .45s var(--ease)}
+.work,.services,.about{padding:150px 5vw}
+.section-head{max-width:1400px;margin:auto;display:flex;justify-content:space-between;gap:60px;align-items:flex-end}
+.section-head h2{font-size:clamp(45px,7vw,95px);letter-spacing:-.06em;line-height:.9;margin:0}
+.section-intro{max-width:310px;color:var(--muted);font-size:12px;line-height:1.6;margin:0}
+
+/* reduced motion: keep everything readable, drop the looping / large movements */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}
+  .art-core,.art-line,.client-orbit{animation:none!important}
+  .magnetic{transform:none!important}
+}
