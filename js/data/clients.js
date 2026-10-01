@@ -1,21 +1,54 @@
-// ─────────────────────────────────────────────────────────────
-//  Put files in  public/assets/images  and  public/assets/videos ,
-//  then reference them WITHOUT "public": e.g. "assets/images/photo.jpg".
-//  SELECTED CLIENTS — add as many as you like (2 or 200).
-//  The selector, the featured panel, the media frame, the counter and the
-//  media archive are all generated from this list — no HTML editing.
-//
-//  name        (required)  shown as the big title
-//  description (required)  short line under the title
-//  tags        optional    e.g. ["Video", "Motion"]
-//  year        optional    e.g. "2026"
-//  image       optional    "assets/images/roosthaven.jpg"  → main photo
-//  gallery     optional    ["assets/images/a.jpg", ...]    → extra media (thumbs)
-//  logo        optional    "assets/images/roosthaven-logo.svg" → replaces the text title
-//  url         optional    link shown as "View project"
-//  Missing / broken images fall back to a clean placeholder automatically.
-// ─────────────────────────────────────────────────────────────
-export const clientsData = [
-  { name: 'Roosthaven', description: 'Property, hospitality and digital storytelling.', tags: ['Video', 'Motion'], year: '2026', image: '', gallery: [] },
-  { name: 'Elite Club',  description: 'Premium lifestyle and an exclusive member network.', tags: ['Social', 'Launch'], year: '2026', image: '', gallery: [] }
-];
+import { supabase } from '../lib/supabase.js'
+
+const fallbackClients = [
+  { id: 'local-roosthaven', name: 'Roosthaven', slug: 'roosthaven', description: 'Property, hospitality and digital storytelling.', logo: '', image: '', gallery: [], url: '', year: 2026, featured: true, sortOrder: 0 },
+  { id: 'local-elite-club', name: 'Elite Club', slug: 'elite-club', description: 'Premium lifestyle and an exclusive member network.', logo: '', image: '', gallery: [], url: '', year: 2026, featured: true, sortOrder: 1 }
+]
+
+export let clients = []
+
+function mapClient(client) {
+  return {
+    id: client.id,
+    name: client.name || '',
+    slug: client.slug || '',
+    description: client.description || '',
+    logo: client.logo_url || '',
+    image: client.primary_image_url || '',
+    gallery: Array.isArray(client.gallery) ? client.gallery : [],
+    url: client.website_url || '',
+    year: client.year || '',
+    featured: Boolean(client.featured),
+    sortOrder: Number(client.sort_order || 0)
+  }
+}
+
+export async function loadClients() {
+  if (!supabase) {
+    clients = [...fallbackClients]
+    return clients
+  }
+
+  const { data, error } = await supabase
+    .from('clients')
+    .select('id,name,slug,description,logo_url,primary_image_url,gallery,website_url,year,published,featured,sort_order,created_at')
+    .eq('published', true)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: false })
+
+  if (error) {
+    console.error('[sutra] Failed to load clients:', error)
+    clients = [...fallbackClients]
+    return clients
+  }
+
+  if (!data?.length) {
+    clients = []
+    return clients
+  }
+
+  clients = (data || []).map(mapClient)
+  return clients
+}
+
+export { fallbackClients, mapClient }

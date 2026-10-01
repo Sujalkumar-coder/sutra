@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sutra Studio project page.">
+  <title>Project — Sutra Studio</title>
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body>
+  <script>try{if(localStorage.getItem('sutra-theme')==='light')document.body.classList.add('light-mode')}catch(e){}</script>
+  <div class="cursor-dot"></div><canvas id="cursorTrail"></canvas>
+  <header class="header">
+    <a class="logo" href="./index.html#top" aria-label="Sutra Studio — home">SUTRA</a>
+    <nav class="nav-links"><a href="./index.html#work">Work</a><a href="./index.html#services">Services</a><a href="./index.html#about">About</a></nav>
+    <div class="header-actions"><button class="theme-toggle-btn" id="themeToggle">LIGHT</button><a href="./index.html#contact" class="header-book">Book a call <span class="arrow">↗</span></a></div>
+  </header>
+  <main class="page-shell" id="projectPage">
+    <div class="page-head">
+      <div><a class="page-back" href="./index.html#work">← Back to Work</a><p class="eyebrow" id="projectPageCategory"></p><h1 id="projectPageTitle">Project</h1><div class="page-meta"><span id="projectPageClient"></span><span id="projectPageYear"></span><span id="projectPageWorkType"></span><a id="projectExternalLink" href="#" target="_blank" rel="noopener" hidden>Open project ↗</a></div></div>
+      <p class="page-head-note" id="projectPageDescription"></p>
+    </div>
+    <div class="project-detail-wrap"><div class="project-detail-media" id="projectPageMedia"></div><div class="project-detail-copy"><p class="eyebrow">SERVICES</p><div class="project-detail-services" id="projectPageServices"></div></div></div>
+    <div id="projectRelated"></div>
+  </main>
+  <div class="booking-toast" id="bookingToast"><span class="spark">✦</span><span>Let's make something move.</span></div>
+  <script type="module" src="./js/pages/project.js"></script>
+</body>
+</html>

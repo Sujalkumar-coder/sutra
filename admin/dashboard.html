@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sutra — Admin</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <div class="admin-shell" id="adminApp">
+    <header class="admin-topbar">
+      <div class="admin-topbar-brand">
+        <a class="admin-brand" href="../">SUTRA</a>
+        <span class="admin-badge">ADMIN</span>
+      </div>
+      <div class="admin-topbar-actions">
+        <span id="user" class="admin-user"></span>
+        <a class="ghost-btn" href="../" target="_blank" rel="noopener">Open site ↗</a>
+        <button id="logout" class="ghost-btn">Log out</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <aside class="admin-sidebar">
+        <div class="admin-sidebar-label">MANAGE</div>
+        <nav class="admin-nav" aria-label="Admin sections">
+          <button data-panel="overview">Dashboard</button>
+          <div class="admin-nav-heading" aria-hidden="true">CONTENT</div>
+          <button data-panel="projects">Selected Work</button>
+          <button data-panel="clients">Clients</button>
+          <button data-panel="services">Services</button>
+          <div class="admin-nav-heading" aria-hidden="true">SITE</div>
+          <button data-panel="manage-site">Manage Site</button>
+          <button data-panel="intro">Intro / Hero</button>
+          <button data-panel="settings">Contact &amp; Footer</button>
+        </nav>
+        <div class="admin-sidebar-footer">Supabase CMS · v3</div>
+      </aside>
+
+      <section class="admin-content">
+        <div id="admin-panel"></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="../js/admin/dashboard.js"></script>
+</body>
+</html>

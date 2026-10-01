@@ -1,0 +1,21 @@
+SUTRA FINAL v8
+
+Changes:
+- Global media preference: one mute/unmute state shared by hero, selected work, and project detail media.
+- Per-media pause memory: manually paused intro/work media remains paused when revisited during the browser session.
+- Work carousel auto-advance stops when the current project has been manually paused.
+- Work section and hero pause/mute when sufficiently outside the viewport and resume only when appropriate.
+- Visible project videos remain mounted; look-ahead warm cache expanded for faster transitions.
+- Client portrait changed to a portrait-friendly 4:5 frame with contained single-letter watermark.
+- Service/project page media thumbnails use upload/poster/YouTube fallback consistently.
+- Admin navigation headings are visually distinct from clickable items.
+- Reset buttons added to content/site editors for reverting unsaved changes.
+- Existing visual design and Supabase setup retained.
+
+V10 FINAL PATCH
+- Fixed Projects New/Edit crash caused by undefined work_opts; added Work Type selector.
+- Manual work pause is now a global session pause for the archive: navigation, viewport changes, and auto timers cannot start another project until Play is clicked.
+- Project title remains the sole project-detail link; removed the secondary Open project CTA.
+- Removed whole-stage edge mask; far cards now fade independently so controls/title/count are not feathered.
+- Tightened What We Do explorer height and list spacing so the last service does not leave excess space.
+- Reduced footer SUTRA wordmark size; liquid radius scales with the new wordmark and uses a 250px maximum.

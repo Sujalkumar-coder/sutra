@@ -1,40 +1,75 @@
-# Sutra Studio — Frontend
+# Sutra Studio — CMS Build
 
-A clean, modular frontend-only portfolio for Sutra Studio. It is intentionally structured so content and individual interactions can be changed without rebuilding the whole site.
+This build keeps the existing Sutra visual language and adds the requested CMS/content behavior.
 
-## Run locally
+## One Supabase migration for this build
+
+Run once in Supabase SQL Editor:
+
+```sql
+alter table public.projects
+  add column if not exists work_type text;
+
+create index if not exists projects_work_type_idx on public.projects(work_type);
+```
+
+The earlier service gradient migration remains required and is already included under `supabase/004_service_gradients.sql`.
+
+## Local setup
+
+Create/edit `.env.local` in the project root:
+
+```env
+VITE_SUPABASE_URL=YOUR_EXISTING_SUPABASE_URL
+VITE_SUPABASE_PUBLISHABLE_KEY=YOUR_EXISTING_SUPABASE_PUBLISHABLE_KEY
+```
+
+Then:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open the local URL printed by Vite.
+Open the URL Vite prints, normally `/sutra/` for the GitHub Pages base path.
 
-## Build check
+## Key behavior
 
-```bash
-npm run build
-```
+- Hero note removed from the public homepage.
+- Intro video uses minimal custom Sutra controls; YouTube/Vimeo provider controls are disabled for the public embed.
+- Intro video pauses and mutes when it leaves the viewport and resumes from its current position when it returns.
+- Selected Work keeps five visible media slots, pauses/mutes background media, blurs background cards, and warms the next/previous project media in a small off-screen cache to reduce transition waits.
+- Selected Work active media retains compact custom controls.
+- Clients use a left client selector, a full-frame multi-image center gallery with its own arrows, and a fixed-size client-photo panel on the right.
+- Services keep configurable gradients in the CMS.
+- Projects have a predefined Work Type field so service pages can group work cleanly (Short Form, Long Form, Commercial, Social / Reel, Explainer, Product / Launch, Brand Film, Other).
+- Service pages are intentionally minimal: back link, service title, project count, grouped project list, no decorative service artwork and no footer.
 
-## Where to edit
+SUTRA FINAL v8
+- Shared global mute preference across hero/work media; persisted locally.
+- Per-video pause memory in the current browser session; manual pause blocks automatic archive movement.
+- Hero/work videos pause when their section leaves the viewport and resume only when not manually paused.
+- Visible carousel media remains mounted; extended warm cache and eager iframe loading for faster transitions.
+- Client portrait uses 4:5 presentation with full-frame photo and single-letter watermark at bottom-left.
+- Service-page thumbnails fall back to uploaded thumbnail, poster, or YouTube poster.
+- Admin CONTENT and SITE headings are visually non-clickable and visually distinct.
+- Reset controls added to project/client/service/intro/site editors.
+- Footer liquid emitter radius enlarged conservatively for a wider, more visible effect.
 
-- `index.html` — page structure
-- `css/` — one stylesheet per section/system
-- `js/data/projects.js` — selected work
-- `js/data/clients.js` — selected clients
-- `js/data/services.js` — services
-- `js/components/` — individual interactions
-- `public/assets/images/` — images
-- `public/assets/videos/` — videos
 
-## Brand colour
+## V10 final fixes
 
-The main orange is controlled by `--accent` in `css/variables.css`. Use `var(--accent)` instead of hard-coding the orange in components.
+- Fixed the Projects editor crash so New Project and Edit Project open normally.
+- Manual pause in Selected Work is now a session-wide archive pause until Play is explicitly chosen again; automatic movement cannot start another project while paused.
+- Removed the secondary “Open project” CTA from the Moving Archive; the project title is the only link to its detail page.
+- Far background cards fade at their own edges instead of masking the complete Work section; section controls and project metadata remain crisp.
+- Tightened the What We Do explorer height and spacing so the last service closes the composition cleanly.
+- Reduced the footer SUTRA wordmark and kept the liquid emitter radius proportional to its height, with a 250px maximum.
 
-## Footer wordmark, Book-a-call button, header logo
+## Live admin access
 
-- `js/components/footer-wordmark.js` + `css/footer.css` — the footer SUTRA is painted by a small WebGL shader from a static text mask (letters never move; only the surface inside reacts to the cursor). No idle animation loop. If WebGL is unavailable, the plain text in `index.html` is shown instead — never both.
-- `js/components/booking.js` + `css/contact.css` — the orange fill is one `<canvas class="btn-fill">` acting as the button background. Tune `FILL_MS`, `RETRACT_MS`, `CELL` at the top of the JS file.
-- `js/components/header.js` — the header SUTRA is a link (`href="#top"`) that smooth-scrolls to the top and keeps the URL clean.
-- `index.html` now applies the saved theme before first paint, and `js/main.js` starts each component independently so one failure can't stop the others.
+After GitHub Pages deployment, the public admin is available at:
+
+`https://sujalkumar-coder.github.io/sutra/admin/`
+
+Bookmark that URL. It uses the same Supabase Auth login; the admin is not a localhost-only feature.

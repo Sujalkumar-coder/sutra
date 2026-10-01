@@ -1,0 +1,77 @@
+
+/* Final visual tuning: restrained type scale, stable spacing, and cleaner media framing. */
+html{scroll-behavior:smooth}
+h1,h2,h3,p{overflow-wrap:break-word;text-wrap:balance}
+
+/* HERO */
+.hero{padding:170px 5vw 95px}
+.hero-copy{max-width:1050px}
+.hero h1{font-size:clamp(50px,6.3vw,104px);line-height:.9;letter-spacing:-.065em;margin:0}
+.hero-stage{margin-top:64px;width:min(100%,1240px);aspect-ratio:16/9}
+.hero-media{background-position:center;background-size:cover;background-color:#090909}
+.hero-media-element{object-fit:cover}
+
+/* SECTION HEADINGS */
+.section-head h2,.clients-head h2{font-size:clamp(42px,5.8vw,80px);line-height:.92}
+.section-intro{font-size:11px;line-height:1.55}
+.clients-head>p{font-size:11px;line-height:1.55}
+
+/* WORK */
+.project-info-main h3{font-size:clamp(28px,3.2vw,46px);line-height:.94}
+.project-info-main p:last-child{font-size:11px;line-height:1.55}
+.project-card{width:min(700px,54vw)}
+
+/* CLIENTS: preserve the complete portrait while using a blurred fill behind it */
+.cl-portrait-frame{--portrait-bg:none}
+.cl-portrait-frame:before{content:"";position:absolute;inset:-16px;background-image:var(--portrait-bg);background-size:cover;background-position:center;filter:blur(20px);transform:scale(1.08);opacity:.28;z-index:0}
+.cl-portrait-frame img{object-fit:contain;object-position:center;padding:18px;z-index:2}
+.cl-portrait-frame.has-image img{background:transparent}
+.cl-portrait-frame:after{background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.78));}
+.cl-portrait-watermark{font-size:clamp(120px,14vw,230px);z-index:1}
+.cl-gallery-copy h3{font-size:clamp(44px,6.1vw,92px);line-height:.86}
+
+/* SERVICES */
+.service-item strong{font-size:clamp(21px,2.4vw,34px)}
+.service-item{padding:22px 28px}
+
+/* INNER PAGES */
+.page-shell{padding-top:140px}
+.page-head{margin-bottom:58px}
+.page-head h1{font-size:clamp(52px,7vw,112px);line-height:.87}
+.page-head-note{font-size:12px;line-height:1.6}
+.service-clean-shell{padding-top:140px}
+.service-clean-title-row h1{font-size:clamp(52px,7vw,106px);line-height:.87}
+.service-clean-count strong{font-size:clamp(40px,5vw,68px)}
+.service-project-copy h2{font-size:clamp(26px,3.2vw,46px);line-height:.9}
+.service-project-copy p{font-size:11px;line-height:1.6}
+.service-empty strong{font-size:clamp(34px,5vw,64px)}
+
+/* Mobile */
+@media(max-width:800px){
+  .hero{padding:130px 20px 70px}
+  .hero h1{font-size:clamp(46px,12.5vw,78px)}
+  .hero-stage{margin-top:42px;width:100%;aspect-ratio:16/9;min-height:0}
+  .section-head h2,.clients-head h2{font-size:clamp(40px,10.5vw,68px)}
+  .project-card{width:78vw}
+  .cl-gallery-copy h3{font-size:clamp(38px,12vw,70px)}
+  .page-shell{padding-top:120px}
+  .service-clean-shell{padding-top:120px}
+}
+
+
+/* Prevent heading collisions from extreme line boxes at intermediate widths. */
+.hero h1,.section-head h2,.clients-head h2,.about-main h2,.contact h2,.page-head h1,.service-clean-title-row h1,.service-project-copy h2{max-width:100%;text-wrap:balance}
+.hero-copy,.section-head,.clients-head,.about-layout,.contact,.page-head,.service-clean-head{min-width:0}
+@media(min-width:801px) and (max-width:1200px){
+  .hero h1{font-size:clamp(52px,6vw,88px)}
+  .section-head h2,.clients-head h2{font-size:clamp(40px,5.4vw,70px)}
+  .about-main h2{font-size:clamp(62px,8vw,110px)}
+  .contact h2{font-size:clamp(48px,6.6vw,92px)}
+}
+
+/* Sutra section dividers */
+.work,
+.clients,
+.services{
+  border-top:1px solid var(--line);
+}

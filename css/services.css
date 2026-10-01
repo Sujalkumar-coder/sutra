@@ -1,8 +1,11 @@
 .services{background:transparent}
-.service-explorer{max-width:1400px;margin:65px auto 0;display:grid;grid-template-columns:1.05fr .95fr;min-height:650px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.service-visual{position:relative;overflow:hidden;border-right:1px solid var(--line);display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.08),transparent 42%),var(--bg)}
+.service-explorer{max-width:1400px;margin:65px auto 0;display:grid;grid-template-columns:.95fr 1.05fr;height:600px;min-height:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.service-visual{position:relative;overflow:hidden;border-right:1px solid var(--line);display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.08),transparent 42%),var(--bg);isolation:isolate}
+.service-visual:before{content:"";position:absolute;inset:-18%;background:var(--service-gradient,linear-gradient(135deg,#c8dcff,#111827));opacity:.12;filter:blur(35px);transform:scale(1.08);pointer-events:none;transition:background .7s var(--ease),opacity .7s var(--ease),transform .9s var(--ease);z-index:0}
+.service-art.service-changing{animation:serviceSwap .24s ease-out both}
+.service-visual:has(.service-changing):before{opacity:.2;transform:scale(1.14)}
 .service-grid{position:absolute;inset:0;opacity:.25;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(circle,#000,transparent 72%)}
-.service-art{width:72%;aspect-ratio:1;position:relative;display:grid;place-items:center;isolation:isolate;--service-accent:#c8dcff}
+.service-art{width:72%;aspect-ratio:1;position:relative;display:grid;place-items:center;isolation:isolate;--service-accent:#c8dcff;--service-gradient-start:#c8dcff;--service-gradient-end:#111111;z-index:1}
 .service-art:after{content:"";position:absolute;inset:-14%;z-index:-1;background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--service-accent) 14%,transparent),transparent 48%);opacity:.45;filter:blur(28px);transition:opacity .55s ease,transform .8s var(--ease)}
 .service-art.service-changing:after{opacity:.85;transform:scale(1.08)}
 .service-art.service-changing{animation:serviceSwap .24s ease-out both}
@@ -19,7 +22,7 @@
 .service-art[data-mode="4"] .art-core{width:45%;height:45%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 4%,#888 5% 13%,#111 14%);animation:launch 3.8s ease-in-out infinite}
 .service-art[data-mode="5"] .art-core{width:48%;height:32%;aspect-ratio:auto;border-radius:9px;background:linear-gradient(#aaa 0 12%,#222 12% 100%);box-shadow:0 0 0 1px #666,0 0 60px rgba(255,255,255,.08);animation:uiFloat 4s ease-in-out infinite}
 .service-list{display:flex;flex-direction:column}
-.service-item{position:relative;background:transparent;border:0;border-bottom:1px solid var(--line);text-align:left;padding:24px 30px;cursor:pointer;display:grid;grid-template-columns:38px 1fr auto;align-items:baseline;
+.service-item{position:relative;background:transparent;border:0;border-bottom:1px solid var(--line);text-align:left;padding:18px 26px;cursor:pointer;display:grid;grid-template-columns:38px 1fr auto;align-items:baseline;
   box-shadow:inset 0 0 0 var(--sv);transition:background-color .12s linear,box-shadow .12s linear}
 .service-item:last-child{border-bottom:0}
 .service-no{font-size:9px;color:var(--faint);transition:color .12s linear}
@@ -41,3 +44,10 @@
 @keyframes launch{50%{transform:scale(1.18) translateY(-10px)}}
 @keyframes uiFloat{50%{transform:translateY(-12px) rotate(-2deg)}}
 @keyframes serviceSwap{0%{opacity:.55;transform:scale(.975)}100%{opacity:1;transform:scale(1)}}
+
+
+/* v10 services balance: compact the explorer so the sixth service closes the panel cleanly. */
+.service-explorer{height:600px;min-height:0;}
+.service-list{min-height:0;height:100%;}
+.service-item{min-height:0;}
+@media(max-width:800px){.service-explorer{height:auto;min-height:0;grid-template-columns:1fr;}.service-visual{min-height:440px;height:440px;border-right:0;border-bottom:1px solid var(--line);}.service-item{padding:18px 20px;}}

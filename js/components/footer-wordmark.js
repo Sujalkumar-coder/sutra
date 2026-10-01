@@ -19,7 +19,7 @@
  */
 
 const REF = 240;            // reference font size used to measure glyph silhouettes
-const MAX_FONT = 520;       // px, same ceiling the old wordmark used
+const MAX_FONT = 460;       // px, same ceiling the old wordmark used
 const SPACING = { target: 0.14, cap: 0.32, min: 0.05 };   // in em
 
 // ---- liquid tuning (only these numbers control the feel) -------------------------------------
@@ -35,7 +35,7 @@ const LIQUID = {
   dyeMax: 2.5,           // dye density ceiling (keeps the fade time bounded)
   drag: 15,              // 1/s  how firmly the cursor grabs the liquid
   dyeRate: 4.5,          // dye added per second at full cursor speed
-  radius: 0.17,          // cursor size, as a fraction of the wordmark height
+  radius: 0.56,          // cursor size, as a fraction of the wordmark height
   rest: 2.2,             // SIMULATED seconds after the last stir before the loop sleeps (dye is gone by ~1.6)
   shine: 0.35,           // wet-surface highlight on the dye (0 = flat colour)
 };
@@ -649,7 +649,7 @@ export function initFooter() {
 
   // ---------------------------------------------------------------- liquid
   const radiusUv = () => {                       // gaussian "radius²" in height units (aspect corrected)
-    const r = Math.max(22, Math.min(64, H * LIQUID.radius)) / H;
+    const r = Math.max(22, Math.min(250, H * LIQUID.radius)) / H;
     return r * r;
   };
 
@@ -699,7 +699,7 @@ export function initFooter() {
     const speed = dist / dtS;                      // css px / s
     if (dist < 0.15 || speed < 14) return false;
 
-    const R = Math.max(22, Math.min(64, H * LIQUID.radius));
+    const R = Math.max(22, Math.min(250, H * LIQUID.radius));
     const steps = Math.min(10, Math.max(1, Math.ceil(dist / (R * 0.5))));
     const coupling = 1 - Math.exp(-LIQUID.drag * dtS);
     const cStep = 1 - Math.pow(1 - coupling, 1 / steps);

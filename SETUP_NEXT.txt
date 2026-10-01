@@ -1,0 +1,9 @@
+SUTRA CMS v5
+
+1) Run supabase/004_service_gradients.sql once in Supabase SQL Editor.
+2) Put your existing Supabase URL and publishable key in .env.local.
+3) Run npm install.
+4) Run npm run dev.
+5) Open the exact Vite localhost URL, then /sutra/admin/.
+6) To connect a project to a service: Admin -> Services -> Edit -> Assigned projects -> select project -> Save.
+7) To manage the intro video: Admin -> Intro / Hero -> paste the YouTube/Vimeo/MP4 URL -> Save.

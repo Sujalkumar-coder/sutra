@@ -1,0 +1,19 @@
+Sutra CMS v6
+
+1. Keep your existing Supabase project/Auth/Storage.
+2. Run supabase/005_project_work_type.sql once in Supabase SQL Editor.
+3. Put your existing Supabase values in .env.local:
+   VITE_SUPABASE_URL=...
+   VITE_SUPABASE_PUBLISHABLE_KEY=...
+4. npm install
+5. npm run dev
+
+Key changes:
+- Hero note removed.
+- Intro uses custom Sutra controls and no provider controls.
+- Intro/Selected Work videos pause + mute when their section leaves the viewport and resume from the saved position.
+- Selected Work preloads the five visible slots and blurs/pauses background media.
+- Client center area is a full-frame multi-image gallery; arrows change gallery images only. Right column is the fixed-size client photo.
+- Services are grouped by Project Work Type on clean service pages.
+- Project editor includes a predefined Work Type field.
+- Service page intentionally has no footer or decorative service artwork.

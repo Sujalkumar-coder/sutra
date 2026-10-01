@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Sutra — Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #080808;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login {
+      width: min(420px, calc(100% - 40px));
+    }
+
+    .brand {
+      margin-bottom: 40px;
+      font-size: 28px;
+      letter-spacing: -1px;
+    }
+
+    .brand span {
+      margin-left: 8px;
+      color: #666;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+    }
+
+    .subtitle {
+      margin: 0 0 30px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    input {
+      width: 100%;
+      height: 52px;
+      padding: 0 16px;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      outline: none;
+      background: #111;
+      color: #fff;
+      font-size: 15px;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus {
+      border-color: #555;
+    }
+
+    button {
+      width: 100%;
+      height: 52px;
+      border: 0;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border: 1px solid #3b1b1b;
+      border-radius: 7px;
+      background: #211010;
+      color: #ff8d8d;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="login">
+
+    <div class="brand">
+      Sutra <span>Admin</span>
+    </div>
+
+    <h1>Welcome back.</h1>
+
+    <p class="subtitle">
+      Sign in to manage your website.
+    </p>
+
+    <form id="login-form">
+
+      <div class="field">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button
+        id="login-button"
+        type="submit"
+      >
+        Sign in
+      </button>
+
+      <div
+        id="login-error"
+        class="error"
+        role="alert"
+      ></div>
+
+    </form>
+
+  </main>
+
+  <script
+    type="module"
+    src="../js/admin/login.js"
+  ></script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sutra Studio service page.">
+  <title>Service — Sutra Studio</title>
+  <link rel="stylesheet" href="css/global.css">
+</head>
+<body class="inner-page service-page">
+  <script>try{if(localStorage.getItem('sutra-theme')==='light')document.body.classList.add('light-mode')}catch(e){}</script>
+  <div class="cursor-dot"></div><canvas id="cursorTrail"></canvas>
+  <header class="header">
+    <a class="logo" href="./index.html#top" aria-label="Sutra Studio — home">SUTRA</a>
+    <nav class="nav-links"><a href="./index.html#work">Work</a><a href="./index.html#services">Services</a><a href="./index.html#about">About</a></nav>
+    <div class="header-actions"><button class="theme-toggle-btn" id="themeToggle">LIGHT</button><a href="./index.html#contact" class="header-book">Book a call <span class="arrow">↗</span></a></div>
+  </header>
+
+  <main class="service-clean-shell">
+    <section class="service-clean-head">
+      <a class="page-back" href="./index.html#services">← Back to Services</a>
+      <div class="service-clean-title-row">
+        <div><p class="eyebrow">SERVICE / <span id="servicePageIndex">01</span></p><h1 id="servicePageTitle">Service</h1></div>
+        <div class="service-clean-count"><strong id="serviceProjectCount">0</strong><span>PUBLISHED PROJECTS</span></div>
+      </div>
+    </section>
+    <section class="service-clean-work">
+      <div class="service-group-list" id="serviceProjects"></div>
+    </section>
+  </main>
+  <script type="module" src="./js/pages/service.js"></script>
+</body>
+</html>

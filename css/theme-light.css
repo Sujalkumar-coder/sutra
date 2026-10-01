@@ -2,7 +2,7 @@
    switch automatically; only the dark media frames / decorative art need explicit rules here. */
 body{transition:background .4s ease,color .4s ease}
 
-body.light-mode .hero-note,
+
 body.light-mode .project-info-main p:last-child,
 body.light-mode .project-count{color:var(--muted)}
 

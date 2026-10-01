@@ -1,0 +1,6 @@
+SUTRA ADMIN ACCESS
+
+After deployment to GitHub Pages:
+https://sujalkumar-coder.github.io/sutra/admin/
+
+Use your existing Supabase Auth admin account to log in.
