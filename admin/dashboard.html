@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sutra — Admin</title>
+  <script type="module" crossorigin src="/sutra/assets/dashboard-CLNIifDj.js"></script>
+  <link rel="modulepreload" crossorigin href="/sutra/assets/supabase-C1pZBt_5.js">
+  <link rel="modulepreload" crossorigin href="/sutra/assets/clients-BnZIS6bf.js">
+  <link rel="modulepreload" crossorigin href="/sutra/assets/rolldown-runtime-DK3Fl9T5.js">
+  <link rel="modulepreload" crossorigin href="/sutra/assets/video-65I5EbRW.js">
+  <link rel="modulepreload" crossorigin href="/sutra/assets/auth-xPYlYn5e.js">
+  <link rel="stylesheet" crossorigin href="/sutra/assets/dashboard-D-oph23m.css">
+</head>
+<body>
+  <div class="admin-shell" id="adminApp">
+    <header class="admin-topbar">
+      <div class="admin-topbar-brand">
+        <a class="admin-brand" href="../">SUTRA</a>
+        <span class="admin-badge">ADMIN</span>
+      </div>
+      <div class="admin-topbar-actions">
+        <span id="user" class="admin-user"></span>
+        <a class="ghost-btn" href="../" target="_blank" rel="noopener">Open site ↗</a>
+        <button id="logout" class="ghost-btn">Log out</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <aside class="admin-sidebar">
+        <div class="admin-sidebar-label">MANAGE</div>
+        <nav class="admin-nav" aria-label="Admin sections">
+          <button data-panel="overview">Dashboard</button>
+          <div class="admin-nav-heading" aria-hidden="true">CONTENT</div>
+          <button data-panel="projects">Selected Work</button>
+          <button data-panel="clients">Clients</button>
+          <button data-panel="services">Services</button>
+          <div class="admin-nav-heading" aria-hidden="true">SITE</div>
+          <button data-panel="manage-site">Manage Site</button>
+          <button data-panel="intro">Intro / Hero</button>
+          <button data-panel="settings">Contact &amp; Footer</button>
+        </nav>
+        <div class="admin-sidebar-footer">Supabase CMS · v3</div>
+      </aside>
+
+      <section class="admin-content">
+        <div id="admin-panel"></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
