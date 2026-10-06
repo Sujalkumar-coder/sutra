@@ -19,6 +19,9 @@ function mapClient(client) {
     url: client.website_url || '',
     year: client.year || '',
     featured: Boolean(client.featured),
+    imagePositionX: Number(client.image_position_x ?? 50),
+    imagePositionY: Number(client.image_position_y ?? 50),
+    imageScale: Number(client.image_scale ?? 1),
     sortOrder: Number(client.sort_order || 0)
   }
 }
@@ -31,7 +34,7 @@ export async function loadClients() {
 
   const { data, error } = await supabase
     .from('clients')
-    .select('id,name,slug,description,logo_url,primary_image_url,gallery,website_url,year,published,featured,sort_order,created_at')
+    .select('id,name,slug,description,logo_url,primary_image_url,gallery,website_url,year,published,featured,sort_order,image_position_x,image_position_y,image_scale,created_at')
     .eq('published', true)
     .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })

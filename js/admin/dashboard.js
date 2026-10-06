@@ -91,102 +91,38 @@ function renderShell(title, eyebrow, description = '') {
 }
 
 function renderOverview() {
-  const body = renderShell('Dashboard', 'SUTRA ADMIN', 'A single control room for your portfolio content and site-wide settings.')
+  const body = renderShell('Dashboard', 'SUTRA ADMIN', 'A quiet overview of the site. Detailed controls live in their own sections.')
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening'
 
   body.innerHTML = `
-    <section class="dashboard-hero panel">
+    <section class="dashboard-hero panel dashboard-hero-minimal">
       <div class="dashboard-hero-copy">
         <span class="eyebrow">COMMAND CENTER</span>
         <h2>${greeting}, Sujal.</h2>
-        <p>Everything visitors see can be managed from this dashboard. Changes are saved directly to Supabase.</p>
+        <p>Everything is connected. Use the left navigation when you want to edit something.</p>
       </div>
-      <div class="dashboard-hero-actions">
-        <button class="solid-btn" data-go="projects">+ Project</button>
-        <button class="outline-btn" data-go="clients">+ Client</button>
-        <button class="outline-btn" data-go="services">+ Service</button>
-        <button class="ghost-btn" data-go="intro">Edit intro</button>
-      </div>
+      <div class="dashboard-hero-status"><span class="status-dot ${hasSupabaseConfig ? 'is-ok' : ''}"></span>${hasSupabaseConfig ? 'Supabase connected' : 'Configuration required'}</div>
     </section>
 
-    <div class="admin-stat-grid admin-stat-grid-premium">
-      <div class="stat-card">
-        <span>PROJECTS</span>
-        <strong>${state.projects.length}</strong>
-        <small>${state.projects.filter((p) => p.published).length} published · ${state.projects.filter((p) => p.featured).length} featured</small>
-      </div>
-      <div class="stat-card">
-        <span>CLIENTS</span>
-        <strong>${state.clients.length}</strong>
-        <small>${state.clients.filter((c) => c.published).length} published</small>
-      </div>
-      <div class="stat-card">
-        <span>SERVICES</span>
-        <strong>${state.services.length}</strong>
-        <small>${state.services.filter((s) => s.published).length} published</small>
-      </div>
-      <div class="stat-card status-card">
-        <span>SITE STATUS</span>
-        <strong>${state.settings ? 'READY' : 'SETUP'}</strong>
-        <small>${hasSupabaseConfig ? 'Supabase connected' : 'Configuration required'}</small>
-      </div>
-    </div>
+    <section class="admin-stat-grid admin-stat-grid-premium">
+      <div class="stat-card"><span>PROJECTS</span><strong>${state.projects.length}</strong><small>${state.projects.filter((p) => p.published).length} published · ${state.projects.filter((p) => p.featured).length} featured</small></div>
+      <div class="stat-card"><span>CLIENTS</span><strong>${state.clients.length}</strong><small>${state.clients.filter((c) => c.published).length} published</small></div>
+      <div class="stat-card"><span>SERVICES</span><strong>${state.services.length}</strong><small>${state.services.filter((s) => s.published).length} published</small></div>
+      <div class="stat-card status-card"><span>SITE STATUS</span><strong>${state.settings ? 'READY' : 'SETUP'}</strong><small>${state.settings ? 'Site settings available' : 'Site settings missing'}</small></div>
+    </section>
 
-    <div class="admin-dashboard-grid admin-dashboard-grid-premium">
-      <section class="panel dashboard-list-panel">
-        <div class="panel-head">
-          <div><h2>Recent work</h2><p>Your latest project entries.</p></div>
-          <button class="outline-btn" data-go="projects">View all</button>
-        </div>
-        <div class="row-list">
-          ${state.projects.slice(0, 7).map((p) => `
-            <div class="simple-row">
-              <div class="simple-row-title">
-                <span class="row-index">${String(p.sort_order ?? 0).padStart(2, '0')}</span>
-                <div>
-                  <strong>${esc(p.title)}</strong>
-                  <small>${esc(p.category || 'No category')} · ${esc(p.client_name || 'Independent')}</small>
-                </div>
-              </div>
-              <span class="status-pill ${p.published ? 'is-live' : ''}">${p.published ? 'Published' : 'Draft'}</span>
-            </div>`).join('') || '<div class="empty-state">No projects yet. Create your first project.</div>'}
-        </div>
-      </section>
-
-      <section class="panel dashboard-health">
-        <div class="panel-head">
-          <div><h2>System health</h2><p>A quick check before you publish more work.</p></div>
-        </div>
-        <div class="checklist">
-          ${check('Supabase connected', hasSupabaseConfig)}
-          ${check('Admin authentication', Boolean(currentUser))}
-          ${check('Projects available', state.projects.length > 0)}
-          ${check('Clients available', state.clients.length > 0)}
-          ${check('Services available', state.services.length > 0)}
-          ${check('Site settings available', Boolean(state.settings))}
-        </div>
-      </section>
-    </div>
-
-    <div class="dashboard-quick-grid">
-      <button class="quick-card" data-go="intro">
-        <span>01</span><strong>Intro / Hero</strong>
-        <small>Change the homepage reel and headline.</small><b>↗</b>
-      </button>
-      <button class="quick-card" data-go="settings">
-        <span>02</span><strong>Contact &amp; Footer</strong>
-        <small>Update your email, phone, location and socials.</small><b>↗</b>
-      </button>
-      <button class="quick-card" data-go="services">
-        <span>03</span><strong>Service visuals</strong>
-        <small>Adjust gradient colours, artwork and ordering.</small><b>↗</b>
-      </button>
-    </div>`
-
-  body.querySelectorAll('[data-go]').forEach((button) => {
-    button.addEventListener('click', () => setPanel(button.dataset.go))
-  })
+    <section class="panel dashboard-health dashboard-health-clean">
+      <div class="panel-head"><div><h2>System health</h2><p>The few things that matter before publishing.</p></div></div>
+      <div class="checklist">
+        ${check('Supabase connected', hasSupabaseConfig)}
+        ${check('Admin authentication', Boolean(currentUser))}
+        ${check('Projects available', state.projects.length > 0)}
+        ${check('Clients available', state.clients.length > 0)}
+        ${check('Services available', state.services.length > 0)}
+        ${check('Site settings available', Boolean(state.settings))}
+      </div>
+    </section>`
 }
 
 function check(label, ok) {
@@ -361,32 +297,203 @@ async function saveProject(event, existingId) {
   }
 }
 
+function clientPositionValue(client, key, fallback) {
+  const value = Number(client?.[key])
+  return Number.isFinite(value) ? value : fallback
+}
+
+async function persistClientOrder() {
+  const updates = state.clients.map((client, index) =>
+    supabase.from('clients').update({ sort_order: index }).eq('id', client.id)
+  )
+  const results = await Promise.all(updates)
+  const failed = results.find((result) => result.error)
+  if (failed) throw failed.error
+  state.clients = state.clients.map((client, index) => ({ ...client, sort_order: index }))
+}
+
+function bindClientOrdering(body) {
+  let draggedId = ''
+  const list = body.querySelector('[data-client-order-list]')
+  if (!list) return
+
+  const move = async (fromIndex, toIndex) => {
+    if (toIndex < 0 || toIndex >= state.clients.length || fromIndex === toIndex) return
+    const [moved] = state.clients.splice(fromIndex, 1)
+    state.clients.splice(toIndex, 0, moved)
+    try {
+      await persistClientOrder()
+      renderClients()
+    } catch (error) {
+      window.alert(error.message || 'Unable to save client order.')
+      await loadState()
+      renderClients()
+    }
+  }
+
+  body.querySelectorAll('[data-client-order-row]').forEach((row) => {
+    row.addEventListener('dragstart', () => {
+      draggedId = row.dataset.clientOrderRow
+      row.classList.add('is-dragging')
+    })
+    row.addEventListener('dragend', () => {
+      draggedId = ''
+      row.classList.remove('is-dragging')
+      body.querySelectorAll('[data-client-order-row]').forEach((item) => item.classList.remove('is-drag-over'))
+    })
+    row.addEventListener('dragover', (event) => {
+      event.preventDefault()
+      if (draggedId && draggedId !== row.dataset.clientOrderRow) row.classList.add('is-drag-over')
+    })
+    row.addEventListener('dragleave', () => row.classList.remove('is-drag-over'))
+    row.addEventListener('drop', async (event) => {
+      event.preventDefault()
+      row.classList.remove('is-drag-over')
+      if (!draggedId || draggedId === row.dataset.clientOrderRow) return
+      const fromIndex = state.clients.findIndex((c) => c.id === draggedId)
+      const toIndex = state.clients.findIndex((c) => c.id === row.dataset.clientOrderRow)
+      await move(fromIndex, toIndex)
+    })
+  })
+}
+
 function renderClients() {
-  const body = renderShell('Clients', 'CONTENT MANAGEMENT', 'Manage logos, images, descriptions and external client links.')
+  const body = renderShell('Clients', 'CONTENT MANAGEMENT', 'Arrange clients in the exact public order and control the focal point of each client image.')
   document.getElementById('page-actions').innerHTML = '<button class="solid-btn" data-new-client>New client</button>'
-  body.innerHTML = `<div class="cms-list">${state.clients.map((c) => `<article class="cms-row"><div class="cms-row-main"><div class="cms-thumb" style="background-image:url('${esc(c.logo_url || c.primary_image_url || '')}')"></div><div><strong>${esc(c.name)}</strong><span>${esc(c.description || 'No description')} · ${c.published ? 'Published' : 'Draft'}</span></div></div><div class="cms-row-actions"><button class="mini-btn" data-edit-client="${c.id}">Edit</button><button class="mini-btn danger" data-delete-client="${c.id}">Delete</button></div></article>`).join('') || '<div class="empty-state">No clients yet.</div>'}</div><div id="entity-editor"></div>`
+  const sorted = [...state.clients].sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0))
+  state.clients = sorted
+
+  body.innerHTML = `
+    <section class="panel client-order-panel">
+      <div class="panel-head">
+        <div><h2>Selected Clients order</h2><p>Drag a client to a new position. The order is saved to Supabase immediately.</p></div>
+        <span class="status-pill is-live">LIVE ORDER</span>
+      </div>
+      <div class="client-order-list" data-client-order-list>
+        ${state.clients.map((c, index) => `
+          <article class="client-order-row" data-client-order-row="${esc(c.id)}" draggable="true">
+            <div class="client-order-handle" title="Drag to reorder">⠿</div>
+            <div class="client-order-index">${String(index + 1).padStart(2, '0')}</div>
+            <div class="cms-thumb" style="background-image:url('${esc(c.logo_url || c.primary_image_url || '')}')"></div>
+            <div class="client-order-main">
+              <strong>${esc(c.name)}</strong>
+              <span>${esc(c.description || 'No description')} · ${c.published ? 'Published' : 'Draft'}</span>
+            </div>
+            <div class="client-order-actions">
+              <button class="mini-btn" data-edit-client="${esc(c.id)}">Edit</button>
+              <button class="mini-btn danger" data-delete-client="${esc(c.id)}">Delete</button>
+            </div>
+          </article>
+        `).join('') || '<div class="empty-state">No clients yet.</div>'}
+      </div>
+    </section>
+    <div id="entity-editor"></div>
+  `
   document.getElementById('page-actions')?.querySelector('[data-new-client]')?.addEventListener('click', () => openClientEditor())
   body.querySelectorAll('[data-edit-client]').forEach((b) => b.addEventListener('click', () => openClientEditor(state.clients.find((c) => c.id === b.dataset.editClient))))
   body.querySelectorAll('[data-delete-client]').forEach((b) => b.addEventListener('click', () => deleteEntity('clients', b.dataset.deleteClient)))
+  bindClientOrdering(body)
 }
 
-function openClientEditor(client = null) {
+function openClientEditor(client = null, options = {}) {
   const editor = document.getElementById('entity-editor')
+  const x = clientPositionValue(client, 'image_position_x', 50)
+  const y = clientPositionValue(client, 'image_position_y', 50)
+  const scale = clientPositionValue(client, 'image_scale', 1)
+
   editor.innerHTML = `<div class="editor-drawer"><div class="drawer-head"><div><p class="eyebrow">${client ? 'EDIT CLIENT' : 'NEW CLIENT'}</p><h2>${client ? esc(client.name) : 'Add client'}</h2></div><div class="editor-header-actions"><button class="reset-btn" type="button" data-reset-form title="Reset unsaved changes"><span class="reset-icon">↺</span><span>Reset</span></button><button class="ghost-btn" data-close>Close</button></div></div>
   <form id="client-form" class="cms-form">
     <input type="hidden" name="id" value="${esc(client?.id || '')}">
     <div class="form-grid two">${field('Name', 'name', client?.name || '', true)}${field('Slug', 'slug', client?.slug || '')}${field('Year', 'year', client?.year || '', false, '', 'number')}${field('Website URL', 'website_url', client?.website_url || '', false, '', 'url')}</div>
     ${textarea('Description', 'description', client?.description || '', 4)}
     <div class="media-grid two">${mediaField('Logo', 'logo_url', client?.logo_url || '', 'client-logo-file')}${mediaField('Primary image', 'primary_image_url', client?.primary_image_url || '', 'client-primary-file')}</div>
+
+    <div class="client-image-position-editor">
+      <div class="form-section-title">Primary image framing</div>
+      <p class="form-note">Move the focal point and zoom the public client portrait without editing the source image.</p>
+      <div class="client-position-preview" data-position-canvas tabindex="0" aria-label="Drag image to choose the visible focal point">
+        <div class="client-position-empty" ${client?.primary_image_url ? 'hidden' : ''}>Upload a primary image to frame it here.</div>
+        <img src="${esc(client?.primary_image_url || '')}" alt="" data-position-preview ${client?.primary_image_url ? '' : 'hidden'}>
+        <span class="client-position-crosshair" aria-hidden="true"></span>
+      </div>
+      <div class="form-grid three">
+        <label>Horizontal <input type="range" name="image_position_x" min="0" max="100" step="1" value="${x}"><output data-position-x>${x}%</output></label>
+        <label>Vertical <input type="range" name="image_position_y" min="0" max="100" step="1" value="${y}"><output data-position-y>${y}%</output></label>
+        <label>Scale <input type="range" name="image_scale" min="1" max="1.8" step="0.01" value="${scale}"><output data-position-scale>${scale.toFixed(2)}×</output></label>
+      </div>
+    </div>
+
     <label>Gallery URLs <textarea name="gallery_urls" rows="4" placeholder="One URL per line">${esc((client?.gallery || []).join('\n'))}</textarea></label>
     <label>Upload gallery images <input id="client-gallery-files" type="file" accept="image/*" multiple></label>
-    <div class="form-grid three"><label class="check-row"><input type="checkbox" name="featured" ${client?.featured ? 'checked' : ''}> Featured</label><label class="check-row"><input type="checkbox" name="published" ${client?.published !== false ? 'checked' : ''}> Published</label>${numberField('Sort order', 'sort_order', client?.sort_order ?? 0)}</div>
+    <div class="form-grid two"><label class="check-row"><input type="checkbox" name="featured" ${client?.featured ? 'checked' : ''}> Featured</label><label class="check-row"><input type="checkbox" name="published" ${client?.published !== false ? 'checked' : ''}> Published</label></div>
     <div class="form-error" id="editor-error" hidden></div><div class="form-actions"><button type="button" class="ghost-btn" data-close>Cancel</button><button type="submit" class="solid-btn">${client ? 'Save changes' : 'Create client'}</button></div>
   </form></div>`
+
+  const form = editor.querySelector('#client-form')
+  const preview = form.querySelector('[data-position-preview]')
+  const previewCanvas = form.querySelector('[data-position-canvas]')
+  const emptyState = form.querySelector('.client-position-empty')
+  const updatePreview = () => {
+    const px = Number(form.elements.image_position_x.value)
+    const py = Number(form.elements.image_position_y.value)
+    const ps = Number(form.elements.image_scale.value)
+    if (preview) {
+      const rect = previewCanvas?.getBoundingClientRect()
+      const maxX = rect ? Math.max(0, (ps - 1) * rect.width * 0.5) : 0
+      const maxY = rect ? Math.max(0, (ps - 1) * rect.height * 0.5) : 0
+      const tx = ((50 - px) / 50) * maxX
+      const ty = ((50 - py) / 50) * maxY
+      preview.style.objectPosition = '50% 50%'
+      preview.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${ps})`
+      preview.hidden = !preview.getAttribute('src')
+    }
+    if (emptyState) emptyState.hidden = Boolean(preview?.getAttribute('src'))
+    form.querySelector('[data-position-x]').textContent = `${px}%`
+    form.querySelector('[data-position-y]').textContent = `${py}%`
+    form.querySelector('[data-position-scale]').textContent = `${ps.toFixed(2)}×`
+  }
+  form.querySelectorAll('input[type="range"]').forEach((input) => input.addEventListener('input', updatePreview))
+
+  // Direct manipulation: drag the image inside the crop window. This writes to
+  // the same persisted X/Y controls, so the sliders and drag gesture stay synced.
+  let drag = null
+  previewCanvas?.addEventListener('pointerdown', (event) => {
+    if (!preview || preview.hidden) return
+    previewCanvas.setPointerCapture?.(event.pointerId)
+    drag = { x: event.clientX, y: event.clientY, px: Number(form.elements.image_position_x.value), py: Number(form.elements.image_position_y.value) }
+    previewCanvas.classList.add('is-dragging')
+  })
+  previewCanvas?.addEventListener('pointermove', (event) => {
+    if (!drag) return
+    const rect = previewCanvas.getBoundingClientRect()
+    const scale = Number(form.elements.image_scale.value)
+    const sensitivity = 100 / Math.max(120, Math.min(rect.width, rect.height)) / Math.max(1, scale * .82)
+    form.elements.image_position_x.value = Math.round(Math.max(0, Math.min(100, drag.px - (event.clientX - drag.x) * sensitivity)))
+    form.elements.image_position_y.value = Math.round(Math.max(0, Math.min(100, drag.py - (event.clientY - drag.y) * sensitivity)))
+    updatePreview()
+  })
+  const stopDrag = () => { drag = null; previewCanvas?.classList.remove('is-dragging') }
+  previewCanvas?.addEventListener('pointerup', stopDrag)
+  previewCanvas?.addEventListener('pointercancel', stopDrag)
+
+  // If an image is uploaded through the file input, show it immediately in the crop editor.
+  form.querySelector('#client-primary-file')?.addEventListener('change', (event) => {
+    const file = event.target.files?.[0]
+    if (!file || !preview) return
+    const url = URL.createObjectURL(file)
+    preview.src = url
+    preview.hidden = false
+    if (emptyState) emptyState.hidden = true
+    updatePreview()
+  })
+
+  updatePreview()
+  if (options.focusFrame) requestAnimationFrame(() => form.querySelector('.client-image-position-editor')?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+
   editor.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => editor.innerHTML = ''))
-  editor.querySelector('#client-form').addEventListener('submit', (event) => saveClient(event, client?.id || ''))
-  editor.querySelector('[data-reset-form]')?.addEventListener('click', () => editor.querySelector('#client-form')?.reset())
-  editor.querySelector('input[name="name"]').addEventListener('blur', (e) => { const slug = editor.querySelector('input[name="slug"]'); if (!slug.value.trim()) slug.value = slugify(e.target.value) })
+  form.addEventListener('submit', (event) => saveClient(event, client?.id || ''))
+  editor.querySelector('[data-reset-form]')?.addEventListener('click', () => { form.reset(); updatePreview() })
+  form.querySelector('input[name="name"]').addEventListener('blur', (e) => { const slug = form.querySelector('input[name="slug"]'); if (!slug.value.trim()) slug.value = slugify(e.target.value) })
 }
 
 async function saveClient(event, existingId) {
@@ -419,7 +526,9 @@ async function saveClient(event, existingId) {
       year: data.get('year') ? Number(data.get('year')) : null,
       featured: data.get('featured') === 'on',
       published: data.get('published') === 'on',
-      sort_order: Number(data.get('sort_order') || 0)
+      image_position_x: Number(data.get('image_position_x') || 50),
+      image_position_y: Number(data.get('image_position_y') || 50),
+      image_scale: Number(data.get('image_scale') || 1)
     }
     const query = existingId ? supabase.from('clients').update(payload).eq('id', existingId) : supabase.from('clients').insert(payload)
     const { error } = await query

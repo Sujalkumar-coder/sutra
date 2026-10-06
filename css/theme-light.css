@@ -1,26 +1,103 @@
-/* Light-mode overrides. Colours that use the design tokens (--bg, --fg, --muted, --faint, --surface-*)
-   switch automatically; only the dark media frames / decorative art need explicit rules here. */
-body{transition:background .4s ease,color .4s ease}
+/* Light mode is a designed surface, not a dark-mode inversion. */
+html{background:#080808}
+html.light-mode-preload{background:#e9e6df}
+html:has(body.light-mode){background:#e9e6df}
+body{transition:background .45s ease,color .45s ease}
 
+body.light-mode{
+  background:
+    radial-gradient(900px 620px at 14% 5%,rgba(255,255,255,.82),transparent 62%),
+    radial-gradient(760px 540px at 86% 28%,rgba(255,255,255,.5),transparent 64%),
+    radial-gradient(900px 700px at 48% 100%,rgba(214,208,197,.46),transparent 68%),
+    linear-gradient(115deg,#ebe8e1 0%,#e4e0d8 48%,#eeeae3 100%);
+  background-attachment:fixed;
+}
+
+/* Warm editorial paper surface. The animated canvas supplies the hand-drawn marks;
+   this layer stays quiet so the page never becomes a visible grid. */
+body.light-mode::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.36;
+  background:radial-gradient(circle at 30% 15%,rgba(255,255,255,.55),transparent 34%),radial-gradient(circle at 78% 70%,rgba(130,120,105,.055),transparent 38%);
+}
+body.light-mode::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.16;
+  background:radial-gradient(circle at 50% 50%,transparent 35%,rgba(40,34,28,.045) 100%);
+}
+
+body.light-mode main,
+body.light-mode section,
+body.light-mode footer{position:relative;z-index:1;background-color:transparent}
+/* Keep the floating header fixed in light mode; the old global stacking rule
+   accidentally changed it to normal document flow and created the blank top band. */
+body.light-mode .header{position:fixed;top:18px;left:50%;z-index:50}
 
 body.light-mode .project-info-main p:last-child,
 body.light-mode .project-count{color:var(--muted)}
+body.light-mode .work-glow{display:none}
+body.light-mode .project-count i{background:rgba(0,0,0,.2)}
+body.light-mode .circle-btn{background:rgba(255,255,255,.16);color:var(--fg)}
+body.light-mode .circle-btn:hover{background:var(--fg);color:var(--accent)}
 
-body.light-mode .work-glow,
-body.light-mode .work-stage:after{display:none}
-body.light-mode .project-count i{background:rgba(0,0,0,.25)}
-body.light-mode .circle-btn{background:rgba(0,0,0,.02)}
-body.light-mode .circle-btn:hover{background:var(--fg);color:var(--bg)}
+body.light-mode .work-stage:before{
+  background:radial-gradient(ellipse,rgba(255,255,255,.62),transparent 68%);
+}
+body.light-mode .project-visual{
+  border-color:rgba(20,20,20,.12);
+  box-shadow:0 32px 70px rgba(55,49,40,.14);
+}
+body.light-mode .project-active .project-visual{
+  border-color:rgba(20,20,20,.18);
+  box-shadow:0 40px 90px rgba(55,49,40,.18),0 0 55px rgba(255,255,255,.5);
+}
+body.light-mode .project-prev,
+body.light-mode .project-next{filter:brightness(.96)}
+body.light-mode .project-far-left,
+body.light-mode .project-far-right{filter:brightness(.88)}
+body.light-mode .project-media-btn{
+  background:rgba(255,255,255,.64);
+  border-color:rgba(0,0,0,.14);
+  color:#111;
+}
+body.light-mode .project-media-btn:hover{background:rgba(255,255,255,.9)}
+body.light-mode .project-card:not(.project-active) .project-media{filter:blur(3px) brightness(.88)}
+body.light-mode .project-card.project-prev .project-media,
+body.light-mode .project-card.project-next .project-media{filter:blur(2px) brightness(.92)}
 
-/* service artwork */
-body.light-mode .service-visual{background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.06),transparent 42%),var(--bg)}
-body.light-mode .service-grid{background-image:linear-gradient(rgba(0,0,0,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.08) 1px,transparent 1px)}
-body.light-mode .art-core{background:#111;box-shadow:0 0 60px rgba(0,0,0,.15)}
-body.light-mode .art-line{border-color:rgba(0,0,0,.35)}
+body.light-mode .service-visual{
+  background:
+    radial-gradient(circle at 50% 45%,rgba(0,0,0,.035),transparent 42%),
+    rgba(255,255,255,.06);
+}
+body.light-mode .service-grid{background-image:none}
+body.light-mode .art-core{background:#111;box-shadow:0 0 60px rgba(0,0,0,.12)}
+body.light-mode .art-line{border-color:rgba(0,0,0,.25)}
 body.light-mode .art-caption{color:var(--muted)}
 body.light-mode .art-caption strong{color:var(--fg)}
 
-/* cursor + toast */
 body.light-mode .cursor-dot{background:#080808;box-shadow:none}
 body.light-mode #cursorTrail{mix-blend-mode:normal}
-body.light-mode .booking-toast{background:rgba(255,255,255,.9);border-color:rgba(0,0,0,.12);color:#080808}
+body.light-mode .booking-toast{background:rgba(255,255,255,.86);border-color:rgba(0,0,0,.12);color:#080808}
+
+#sutraAmbient{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  pointer-events:none;
+  z-index:0;
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.light-mode::before,body.light-mode::after{animation:none}
+}
+
+body.light-mode .header{
+  background:rgba(245,242,236,.78);
+  border-color:rgba(20,18,15,.11);
+  box-shadow:0 18px 50px rgba(55,49,40,.10),inset 0 1px 0 rgba(255,255,255,.75);
+  color:#111;
+}
+body.light-mode .header:before{background:linear-gradient(180deg,rgba(255,255,255,.48),transparent 60%)}
+body.light-mode .nav-links a{color:rgba(15,14,12,.52)}
+body.light-mode .nav-links a:hover{color:#111}
+body.light-mode .theme-toggle-btn{border-color:rgba(20,18,15,.14);color:#111;background:rgba(255,255,255,.24)}
+body.light-mode .header-book{background:#111;color:#fff}

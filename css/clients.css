@@ -23,3 +23,13 @@
 .cl-portrait-frame:before{inset:-10px;filter:blur(18px);opacity:.22}
 @media(max-width:1000px){.cl-portrait-frame{width:min(100%,360px);height:auto}}
 @media(max-width:700px){.cl-portrait-frame{width:min(100%,320px);min-height:0;height:auto;aspect-ratio:4/5}.cl-portrait-watermark{left:14px;bottom:14px;font-size:58px}}
+
+
+/* Final client image framing: persisted focal point + zoom. */
+.cl-portrait-frame img{
+  transform-origin:center center;
+  will-change:transform;
+  transition:transform .45s cubic-bezier(.16,1,.3,1);
+}
+.cl-portrait-frame.has-image img{opacity:1}
+.cl-portrait-frame:not(.has-image) img{opacity:0}

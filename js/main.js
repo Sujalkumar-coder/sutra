@@ -15,6 +15,7 @@ import { initBooking } from './components/booking.js'
 import { initThemeToggle } from './components/theme-toggle.js'
 import { initHeader } from './components/header.js'
 import { initScrollReveal } from './components/scroll-reveal.js'
+import { initAmbientBackground } from './components/ambient-background.js'
 
 const start = (name, fn) => {
   try { fn() }
@@ -24,6 +25,7 @@ const start = (name, fn) => {
 async function boot() {
   start('theme', initThemeToggle)
   start('header', initHeader)
+  start('ambient', initAmbientBackground)
   start('cursor', initCursor)
   start('magnetic', initMagnetic)
 

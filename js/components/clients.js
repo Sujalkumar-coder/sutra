@@ -60,7 +60,7 @@ export function initClients() {
     const src = media[galleryIndexValue]
     galleryImage.style.backgroundImage = src ? `url("${src}")` : ''
     galleryCur.textContent = pad(galleryIndexValue)
-    galleryTotal.textContent = pad(media.length-1)
+    galleryTotal.textContent = String(media.length).padStart(2, '0')
     galleryIndex.textContent = pad(galleryIndexValue)
     if(animate){ galleryImage.classList.remove('gallery-swap'); void galleryImage.offsetWidth; galleryImage.classList.add('gallery-swap') }
   }
@@ -84,6 +84,20 @@ export function initClients() {
       portraitImg.alt=''
       portrait.classList.remove('has-image')
     }
+    const px = Number.isFinite(Number(c.imagePositionX)) ? Number(c.imagePositionX) : 50
+    const py = Number.isFinite(Number(c.imagePositionY)) ? Number(c.imagePositionY) : 50
+    const ps = Number.isFinite(Number(c.imageScale)) ? Math.max(1, Number(c.imageScale)) : 1
+    const applyPortraitFrame = () => {
+      const rect = portrait.getBoundingClientRect()
+      const maxX = Math.max(0, (ps - 1) * rect.width * 0.5)
+      const maxY = Math.max(0, (ps - 1) * rect.height * 0.5)
+      const tx = ((50 - px) / 50) * maxX
+      const ty = ((50 - py) / 50) * maxY
+      portraitImg.style.objectPosition = '50% 50%'
+      portraitImg.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${ps})`
+    }
+    portraitImg.addEventListener('load', applyPortraitFrame, { once: true })
+    requestAnimationFrame(applyPortraitFrame)
     updateGallery(c,false)
   }
 
