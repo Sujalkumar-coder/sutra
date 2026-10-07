@@ -1,29 +1,273 @@
-.footer{padding:30px 4vw 24px;overflow:hidden}
-.footer-meta{display:flex;justify-content:space-between;gap:12px;color:var(--faint);font-size:8px;letter-spacing:.13em}
+/* Sutra — mobile/desktop footer refinement
+   Replacement for: css/footer.css
+   No HTML/JS changes required.
+*/
 
-.footer-word-wrap{position:relative;padding-top:clamp(36px,7vw,80px);color:var(--fg)}
-
-/* Plain-text version: this is what shows without JS / WebGL, and what assistive tech reads. */
-.footer-word{font-size:clamp(72px,21vw,390px);font-weight:700;letter-spacing:0;line-height:.8;text-align:center;user-select:none}
-
-/* Once the wordmark renderer is running, the text stays in the DOM but is not painted,
-   so exactly ONE "SUTRA" is ever visible. */
-.footer-word-wrap.has-canvas .footer-word{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-
-.footer-canvas{display:none;width:100%;cursor:crosshair}
-.footer-word-wrap.has-canvas .footer-canvas{display:block}
-
-@media(max-width:800px){
-  .footer-word-wrap{padding-top:80px}
+.footer{
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+  padding:30px 4vw 24px;
+  overflow:hidden;
 }
-.footer-details{max-width:1400px;margin:40px auto 0;padding-top:28px;border-top:1px solid var(--line)}
-.footer-details-grid{display:grid;grid-template-columns:1.2fr .9fr 1fr;gap:30px}
-.footer-eyebrow{display:block;margin-bottom:10px;color:var(--faint);font-size:8px;letter-spacing:.15em}
-.footer-details-identity strong{display:block;font-size:24px;letter-spacing:-.04em;font-weight:600}
-.footer-contact-lines,.footer-social-links{display:flex;flex-direction:column;gap:6px;margin-top:14px}
-.footer-contact-lines a,.footer-contact-lines span,.footer-social-links a,.footer-muted{font-size:11px;color:var(--muted)}
-.footer-contact-lines a:hover,.footer-social-links a:hover{color:var(--fg)}
-.footer-social-links a{display:flex;justify-content:space-between;max-width:180px}
-.footer-details-meta{display:flex;flex-direction:column;justify-content:space-between;gap:30px;text-align:right;color:var(--muted);font-size:9px;letter-spacing:.12em;text-transform:uppercase}
-.footer-details-meta small{color:var(--faint);font-size:8px;letter-spacing:.1em;text-transform:none}
-@media(max-width:800px){.footer-details-grid{grid-template-columns:1fr;gap:28px}.footer-details-meta{text-align:left}}
+
+.footer-meta{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:center;
+  gap:20px;
+  color:var(--faint);
+  font-size:8px;
+  letter-spacing:.13em;
+  text-align:center;
+}
+
+.footer-meta span{
+  min-width:0;
+}
+
+.footer-word-wrap{
+  position:relative;
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  padding-top:clamp(36px,7vw,80px);
+  color:var(--fg);
+  box-sizing:border-box;
+}
+
+/* Plain-text fallback and accessible text. */
+.footer-word{
+  width:100%;
+  font-size:clamp(72px,21vw,390px);
+  font-weight:700;
+  letter-spacing:0;
+  line-height:.8;
+  text-align:center;
+  user-select:none;
+}
+
+/* WebGL wordmark remains the only painted word when available. */
+.footer-word-wrap.has-canvas .footer-word{
+  position:absolute;
+  width:1px;
+  height:1px;
+  margin:0;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+}
+
+.footer-canvas{
+  display:none;
+  width:100%;
+  max-width:100%;
+  cursor:crosshair;
+}
+
+.footer-word-wrap.has-canvas .footer-canvas{
+  display:block;
+}
+
+.footer-details{
+  width:100%;
+  max-width:1400px;
+  margin:48px auto 0;
+  padding-top:0;
+  border-top:1px solid var(--line);
+  box-sizing:border-box;
+}
+
+.footer-details-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  align-items:stretch;
+}
+
+.footer-details-grid > div{
+  min-width:0;
+  padding:28px 34px 8px;
+  text-align:center;
+}
+
+.footer-details-grid > div + div{
+  border-left:1px solid var(--line);
+}
+
+.footer-eyebrow{
+  display:block;
+  margin-bottom:13px;
+  color:var(--faint);
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.footer-details-identity strong{
+  display:block;
+  font-size:24px;
+  line-height:1.05;
+  letter-spacing:-.04em;
+  font-weight:600;
+}
+
+.footer-contact-lines,
+.footer-social-links{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  margin-top:15px;
+}
+
+.footer-contact-lines a,
+.footer-contact-lines span,
+.footer-social-links a,
+.footer-muted{
+  font-size:11px;
+  line-height:1.4;
+  color:var(--muted);
+  text-align:center;
+}
+
+.footer-contact-lines a:hover,
+.footer-social-links a:hover{
+  color:var(--fg);
+}
+
+.footer-social-links a{
+  width:min(180px,100%);
+  justify-content:space-between;
+  gap:16px;
+  text-decoration:none;
+}
+
+.footer-details-meta{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  min-height:100%;
+  text-align:center;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.5;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.footer-details-meta small{
+  color:var(--faint);
+  font-size:8px;
+  line-height:1.5;
+  letter-spacing:.1em;
+  text-transform:none;
+}
+
+/* Tablet */
+@media(max-width:900px){
+  .footer-details-grid > div{
+    padding-left:20px;
+    padding-right:20px;
+  }
+}
+
+/* Phone: deliberately centered and separated.
+   Each footer block gets its own visual boundary rather than becoming one left-aligned column. */
+@media(max-width:800px){
+  .footer{
+    padding:24px 16px 28px;
+  }
+
+  .footer-meta{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px 18px;
+    text-align:center;
+    line-height:1.5;
+  }
+
+  .footer-meta span{
+    text-align:center;
+  }
+
+  .footer-word-wrap{
+    padding-top:70px;
+  }
+
+  .footer-word{
+    font-size:clamp(72px,25vw,145px);
+    line-height:.82;
+  }
+
+  .footer-details{
+    margin-top:42px;
+  }
+
+  .footer-details-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  .footer-details-grid > div{
+    padding:30px 12px;
+    text-align:center;
+  }
+
+  .footer-details-grid > div + div{
+    border-left:0;
+    border-top:1px solid var(--line);
+  }
+
+  .footer-details-identity strong{
+    font-size:22px;
+  }
+
+  .footer-contact-lines,
+  .footer-social-links{
+    align-items:center;
+    margin-top:14px;
+  }
+
+  .footer-contact-lines a,
+  .footer-contact-lines span,
+  .footer-social-links a,
+  .footer-muted{
+    font-size:11px;
+  }
+
+  .footer-social-links a{
+    width:min(190px,80%);
+  }
+
+  .footer-details-meta{
+    min-height:0;
+    gap:16px;
+    text-align:center;
+  }
+}
+
+/* Very narrow phones */
+@media(max-width:380px){
+  .footer{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .footer-word{
+    font-size:clamp(68px,24vw,105px);
+  }
+
+  .footer-details-grid > div{
+    padding-left:8px;
+    padding-right:8px;
+  }
+}

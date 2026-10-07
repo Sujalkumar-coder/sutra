@@ -1,35 +1,544 @@
+/* SUTRA — MOBILE CORRECTION PATCH v2
+   Replace: css/responsive.css
+
+   Surgical fixes:
+   - Selected Work project information was still inheriting the desktop
+     transform: translateX(-50%), which pushed the mobile info panel halfway
+     off-screen. Resetting transform is the critical fix.
+   - Mobile project metadata/controls are kept directly beneath the carousel.
+   - Header/mobile layout and About fix are retained.
+*/
+
 @media(max-width:800px){
-  .header{top:12px;height:52px;padding:0 7px 0 16px;gap:8px}
-  .nav-links{gap:13px}
-  .nav-links a{font-size:10px}
-  .header-book{height:36px;padding:0 12px;font-size:9px}
-  .theme-toggle-btn{height:36px;padding:0 10px;font-size:9px}
-  .hero{padding:140px 20px 70px}
-  .hero-stage{min-height:280px;height:55vw;border-radius:20px}
-  .work,.services,.about,.contact{padding:100px 20px}
-  .section-head{display:block}
-  .section-intro{margin-top:22px}
-  .work-stage{height:650px;margin-top:40px}
-  .project-card{width:78vw;top:36%;transition-duration:900ms}
-  .project-prev{transform:translate(-50%,-50%) translateX(-58%) rotateY(18deg) translateZ(-180px) scale(.67)}
-  .project-next{transform:translate(-50%,-50%) translateX(58%) rotateY(-18deg) translateZ(-180px) scale(.67)}
-  .project-far-left,.project-far-right{display:none}
-  .project-info{bottom:20px;display:block}
-  .project-controls{margin-top:20px}
-  .service-explorer{grid-template-columns:1fr;min-height:0}
-  .service-visual{height:340px;border-right:0;border-bottom:1px solid var(--line)}
-  .service-item{padding:20px 18px}
-  .about-layout{grid-template-columns:35px 1fr;gap:25px;margin:65px auto 80px}
-  .about-index{display:none}
-  .about-side{grid-column:2;margin-top:20px;border-left:0;border-top:1px solid var(--line);padding:25px 0 0}
-  .about-main h2{font-size:18vw}
-  .about-rule span:nth-child(3){display:none}
-  .footer-word-wrap{padding-top:80px}
-  .clients{padding:100px 20px}
-  .clients-head{display:block}
-  .clients-head>p{margin-top:22px}
+
+  html,
+  body{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    overflow-x:hidden;
+    overscroll-behavior-x:none;
+  }
+
+  main,
+  section,
+  footer{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+  }
+
+  img,
+  video,
+  iframe,
+  canvas{
+    max-width:100%;
+  }
+
+  /* HEADER — keep the working centered version */
+  .header{
+    position:fixed !important;
+    top:12px !important;
+    left:50% !important;
+    right:auto !important;
+    transform:translateX(-50%) !important;
+    width:calc(100% - 24px) !important;
+    max-width:760px !important;
+    min-width:0 !important;
+    height:50px !important;
+    box-sizing:border-box;
+    padding:0 7px 0 15px !important;
+    gap:7px !important;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    overflow:hidden;
+    white-space:nowrap;
+  }
+
+  .logo{
+    flex:0 0 auto;
+    min-width:max-content;
+    font-size:10px;
+    letter-spacing:.18em;
+  }
+
+  .nav-links{
+    flex:1 1 auto;
+    min-width:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:clamp(7px,2.4vw,13px);
+    overflow:hidden;
+  }
+
+  .nav-links a{
+    flex:0 0 auto;
+    min-width:0;
+    font-size:8px;
+    white-space:nowrap;
+  }
+
+  .header-actions{
+    flex:0 0 auto;
+    min-width:0;
+    display:flex;
+    align-items:center;
+    gap:5px;
+  }
+
+  .theme-toggle-btn,
+  .header-book{
+    flex:0 0 auto;
+    height:34px;
+    padding:0 9px;
+    font-size:8px;
+    white-space:nowrap;
+  }
+
+  /* HERO */
+  .hero{
+    width:100%;
+    box-sizing:border-box;
+    padding:130px 20px 70px;
+  }
+
+  .hero-copy,
+  .hero-stage{
+    min-width:0;
+    max-width:100%;
+  }
+
+  .hero h1{
+    max-width:100%;
+    font-size:clamp(44px,12.5vw,78px);
+    line-height:.9;
+  }
+
+  .hero-stage{
+    margin-top:42px;
+    width:100%;
+    aspect-ratio:16/9;
+    min-height:0;
+    height:auto;
+    overflow:hidden;
+  }
+
+  /* SELECTED WORK */
+  .work{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    padding:100px 20px 90px;
+    overflow:hidden;
+  }
+
+  .section-head{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    display:block;
+  }
+
+  .section-head > *{
+    min-width:0;
+    max-width:100%;
+  }
+
+  .section-intro{
+    margin-top:22px;
+  }
+
+  .work-stage{
+    position:relative;
+    width:100%;
+    max-width:100%;
+    height:500px !important;
+    min-height:0;
+    margin:34px auto 0 !important;
+    overflow:hidden;
+    perspective:1100px;
+    isolation:isolate;
+    overscroll-behavior-x:none;
+    touch-action:pan-y;
+  }
+
+  .project-card{
+    left:50%;
+    top:39%;
+    width:min(78vw,430px);
+    max-width:calc(100vw - 40px);
+    aspect-ratio:16/10;
+    transition-duration:850ms;
+  }
+
+  .project-active{
+    transform:
+      translate(-50%,-50%)
+      translateZ(70px)
+      scale(1);
+    opacity:1;
+    filter:none;
+  }
+
+  .project-prev{
+    transform:
+      translate(-50%,-50%)
+      translateX(-57%)
+      rotateY(10deg)
+      translateZ(-100px)
+      scale(.70);
+    opacity:.48;
+    filter:brightness(.68);
+  }
+
+  .project-next{
+    transform:
+      translate(-50%,-50%)
+      translateX(57%)
+      rotateY(-10deg)
+      translateZ(-100px)
+      scale(.70);
+    opacity:.48;
+    filter:brightness(.68);
+  }
+
+  .project-far-left,
+  .project-far-right{
+    display:none;
+  }
+
+  /* CRITICAL:
+     work.css gives .project-info left:50% + transform:translateX(-50%).
+     The old mobile patch changed left/right/width but did NOT clear that
+     transform. That moved the entire info panel off the viewport.
+  */
+  .project-info{
+    position:absolute !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+
+    transform:none !important;
+
+    display:flex !important;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-end;
+    gap:17px;
+
+    z-index:30 !important;
+    pointer-events:auto;
+  }
+
+  .project-info-main{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0;
+  }
+
+  .project-info-main .eyebrow{
+    margin-bottom:8px;
+  }
+
+  .project-info-main h3{
+    width:100%;
+    max-width:100%;
+    margin:0 0 8px;
+    font-size:clamp(30px,9.5vw,46px) !important;
+    line-height:.94;
+  }
+
+  .project-info-main h3 a{
+    display:inline-block;
+    max-width:100%;
+  }
+
+  .project-info-main p:last-child{
+    max-width:100%;
+    margin:0;
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  .project-controls{
+    width:100% !important;
+    margin-top:0 !important;
+    display:flex !important;
+    align-items:center;
+    justify-content:flex-start;
+    gap:16px !important;
+    z-index:31;
+  }
+
+  .circle-btn{
+    width:42px;
+    height:42px;
+    flex:0 0 auto;
+  }
+
+  .project-count{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .project-count i{
+    width:42px;
+  }
+
+  .project-info-links{
+    position:static;
+    margin-top:7px;
+  }
+
+  /* CLIENTS */
+  .clients{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    padding:100px 20px;
+    overflow:hidden;
+  }
+
+  .clients-head{
+    display:block;
+  }
+
+  .clients-head > p{
+    margin-top:22px;
+  }
+
+  .clients-app{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    margin-top:42px;
+  }
+
+  /* SERVICES */
+  .services{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    padding:100px 20px;
+  }
+
+  .service-explorer{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    height:auto;
+    min-height:0;
+    grid-template-columns:1fr;
+  }
+
+  .service-visual{
+    min-width:0;
+    height:340px;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .service-list{
+    width:100%;
+    min-width:0;
+  }
+
+  .service-item{
+    min-width:0;
+    padding:20px 18px;
+    grid-template-columns:30px minmax(0,1fr) auto;
+  }
+
+  .service-item strong{
+    min-width:0;
+    font-size:clamp(21px,7vw,32px);
+  }
+
+  .service-item small{
+    min-width:0;
+    overflow-wrap:anywhere;
+  }
+
+  /* ABOUT — retain the structural fix */
+  .about{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    padding:100px 20px 90px;
+    overflow:hidden;
+  }
+
+  .about-top{
+    width:100%;
+    min-width:0;
+  }
+
+  .about-layout{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    margin:65px auto 80px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:0;
+  }
+
+  .about-index{
+    display:none;
+  }
+
+  .about-main{
+    width:100%;
+    min-width:0;
+  }
+
+  .about-kicker{
+    max-width:100%;
+    margin-bottom:28px;
+    font-size:10px;
+    line-height:1.5;
+  }
+
+  .about-main h2{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    font-size:clamp(64px,18vw,120px);
+    line-height:.82;
+    letter-spacing:-.075em;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+
+  .about-side{
+    grid-column:auto;
+    width:100%;
+    min-width:0;
+    margin-top:46px;
+    border-left:0;
+    border-top:1px solid var(--line);
+    padding:25px 0 0;
+    font-size:12px;
+    line-height:1.65;
+  }
+
+  .about-side p{
+    max-width:100%;
+  }
+
+  .about-tags{
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+
+  .about-rule{
+    width:100%;
+    min-width:0;
+    gap:12px;
+  }
+
+  .about-rule span{
+    white-space:nowrap;
+  }
+
+  /* CONTACT */
+  .contact{
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+    padding:100px 20px;
+    text-align:center;
+    overflow:hidden;
+  }
+
+  .contact h2{
+    max-width:100%;
+    font-size:clamp(48px,13vw,82px);
+    line-height:.88;
+  }
+
+  .contact-button{
+    max-width:100%;
+  }
+
+  /* FOOTER CONTAINMENT — actual footer styling remains untouched */
+  .footer{
+    width:100%;
+    max-width:100%;
+    overflow:hidden;
+  }
+
+  .footer-word-wrap,
+  .footer-details,
+  .footer-meta{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+  }
+}
+
+@media(max-width:380px){
+
+  .header{
+    width:calc(100% - 16px) !important;
+    padding-left:11px !important;
+    padding-right:6px !important;
+    gap:5px !important;
+  }
+
+  .nav-links{
+    gap:6px;
+  }
+
+  .nav-links a{
+    font-size:7.5px;
+  }
+
+  .theme-toggle-btn,
+  .header-book{
+    padding-left:7px;
+    padding-right:7px;
+    font-size:7px;
+  }
+
+  .hero,
+  .work,
+  .clients,
+  .services,
+  .about,
+  .contact{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .work-stage{
+    height:490px !important;
+  }
+
+  .project-card{
+    max-width:calc(100vw - 32px);
+  }
+
+  .project-info-main h3{
+    font-size:clamp(28px,9vw,40px) !important;
+  }
+
+  .circle-btn{
+    width:40px;
+    height:40px;
+  }
 }
 
 @media(pointer:coarse){
-  #cursorTrail,.cursor-dot{display:none}
+  #cursorTrail,
+  .cursor-dot{
+    display:none;
+  }
 }
